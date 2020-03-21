@@ -18,7 +18,6 @@ public class Scenes : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        DontDestroyOnLoad(gameObject);
     }
 
     public void SceneToLoad(int index)

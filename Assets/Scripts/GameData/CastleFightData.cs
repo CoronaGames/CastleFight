@@ -52,7 +52,6 @@ public class CastleFightData : MonoBehaviour
             Destroy(this);
         }
         goldValueText.text = playerMoney.ToString();
-        DontDestroyOnLoad(gameObject);
     }
 
     // Update is called once per frame

@@ -22,7 +22,6 @@ public class MainData : MonoBehaviour
         {
             Destroy(this);
         }
-        DontDestroyOnLoad(gameObject);
         LoadData();
     }
 

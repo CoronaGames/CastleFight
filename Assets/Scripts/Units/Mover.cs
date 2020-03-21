@@ -12,7 +12,7 @@ public class Mover : MonoBehaviour
 
     Health health;
     Animator animator;
-    SpriteRenderer spriteRenderer;
+    [SerializeField] SpriteRenderer spriteRenderer;
 
     [SerializeField] GameObject destination;
 
@@ -23,7 +23,10 @@ public class Mover : MonoBehaviour
     {
         health = GetComponent<Health>();
         animator = GetComponent<Animator>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        if(spriteRenderer == null)
+        {
+            spriteRenderer = GetComponent<SpriteRenderer>();
+        }
     }
 
 

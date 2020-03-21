@@ -9,7 +9,7 @@ public class DwellingScript : MonoBehaviour
 {
     [SerializeField] GameObject unitPrefabToInstantiate;
     [SerializeField] GameObject unitParent;
-    [SerializeField] GameObject spawnPosition;
+    [SerializeField] GameObject spawnPosition;  // Position to spawn units
     [SerializeField] Transform[] waypointsList;
     [SerializeField] Transform[] loopingWaypointsList;
 
@@ -31,6 +31,7 @@ public class DwellingScript : MonoBehaviour
     [Header("Upgrades/Variables")]
     [SerializeField] int numberOfUnitsToSpawnPerCountDown = 1;
     [SerializeField] float spawnTimeInSeconds;
+    [SerializeField] bool spawningActivated = true;
 
 
     // Start is called before the first frame update
@@ -53,7 +54,7 @@ public class DwellingScript : MonoBehaviour
         {
             DestroyDwelling();
         }
-        if (CastleFightData.instance.gameInitiated)
+        if (CastleFightData.instance.gameInitiated && spawningActivated)
         {
             Spawn();
         }
@@ -183,11 +184,16 @@ public class DwellingScript : MonoBehaviour
         }
     }
 
-    public void NumberOfUnitsToSpawnPerCountdown(int numberOfUnits)
+
+    public void SetNumberOfUnitsToSpawnPerCountdown(int numberOfUnits)
     {
         numberOfUnitsToSpawnPerCountDown = numberOfUnits;
     }
 
+    public int GetNumberOfUnitsSpawnedPerCountdown()
+    {
+        return numberOfUnitsToSpawnPerCountDown;
+    }
     public Sprite GetDwellingSprite()
     {
         return dwellingSprite;
@@ -196,5 +202,20 @@ public class DwellingScript : MonoBehaviour
     public void SetDestroyOnZeroHealth(bool value)
     {
         destroyOnZeroHealth = value;
+    }
+
+    public bool IsSpawningActivated()
+    {
+        return spawningActivated;
+    }
+
+    public void SetSpawningActivated(bool value)
+    {
+        spawningActivated = value;
+    }
+
+    public void SetUnitPrefabToInstantiate(GameObject prefab)
+    {
+        unitPrefabToInstantiate = prefab;
     }
 }

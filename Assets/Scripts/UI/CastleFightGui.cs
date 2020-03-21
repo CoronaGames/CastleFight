@@ -49,7 +49,6 @@ public class CastleFightGui : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        DontDestroyOnLoad(gameObject);
         infoPopupText.enabled = false;
         SetStarsText();
         /*
