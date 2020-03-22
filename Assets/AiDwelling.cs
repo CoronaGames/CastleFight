@@ -22,7 +22,8 @@ public class AiDwelling : MonoBehaviour
     [SerializeField] float timeToStartSpawning;
     [SerializeField] float currentTimeToStartSpawning;
 
-    [SerializeField] float timeToIncrementNumberOfUnitsSpawned;
+    [SerializeField] float[] timeToIncrementNumberOfUnitsSpawned;
+    [SerializeField] int currentIncrementIndex = 0;
     [SerializeField] float currentTimeToIncrementNumberOfUnitsSpawned;
 
 
@@ -58,6 +59,20 @@ public class AiDwelling : MonoBehaviour
     {
         if(waitingToUpgrade || waitingToStartSpawning || waitingToIncrementNumberOfSpawnedUnits)
         {
+            if (waitingToStartSpawning)
+            {
+                if (waitingToStartSpawning && currentTimeToStartSpawning < timeToStartSpawning)
+                {
+                    currentTimeToStartSpawning += Time.deltaTime;
+                }
+                else
+                {
+                    StartSpawning();
+                    
+                }
+                return false;
+            }
+           
             if (currentTimeToUpgrade < timeToUpgradeDwelling)
             {
                 currentTimeToUpgrade += Time.deltaTime;
@@ -67,7 +82,7 @@ public class AiDwelling : MonoBehaviour
                 UpgradeDwelling();
             }
 
-            if (currentTimeToIncrementNumberOfUnitsSpawned < timeToIncrementNumberOfUnitsSpawned)
+            if (currentTimeToIncrementNumberOfUnitsSpawned < timeToIncrementNumberOfUnitsSpawned[currentIncrementIndex])
             {
                 currentTimeToIncrementNumberOfUnitsSpawned += Time.deltaTime;
             }
@@ -76,15 +91,7 @@ public class AiDwelling : MonoBehaviour
                 IncrementUnitsSpawned();
             }
 
-            if (currentTimeToStartSpawning < timeToStartSpawning)
-            {
-                currentTimeToStartSpawning += Time.deltaTime;
-            }
-            else
-            {
-                StartSpawning();
-                return false;
-            }
+           
             return true;
         }
      
@@ -105,7 +112,16 @@ public class AiDwelling : MonoBehaviour
     public void IncrementUnitsSpawned()
     {
         dwellingScript.SetNumberOfUnitsToSpawnPerCountdown(dwellingScript.GetNumberOfUnitsSpawnedPerCountdown() + 1);
-        waitingToIncrementNumberOfSpawnedUnits = false;
+        currentIncrementIndex++;
+        if(currentIncrementIndex < timeToIncrementNumberOfUnitsSpawned.Length)
+        {
+            currentTimeToIncrementNumberOfUnitsSpawned = 0f;
+        }
+        else
+        {
+            waitingToIncrementNumberOfSpawnedUnits = false;
+        }
+        
     }
 
 }

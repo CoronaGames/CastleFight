@@ -64,7 +64,6 @@ namespace Game.Combat
                 }
                 if(hasAOE && IsCurrentTargetWithinRange())
                 {
-                    Debug.Log("Exploding");
                     Explode();
                 }
              

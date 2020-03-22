@@ -495,7 +495,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthPoints: 0
-  maxHealthPoints: 150
+  maxHealthPoints: 140
   isUnit: 1
   hpFill: {fileID: 7332586096318840346}
   hpText: {fileID: 2293273354167860711}

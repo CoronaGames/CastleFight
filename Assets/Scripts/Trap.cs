@@ -29,11 +29,9 @@ public class Trap : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Trigger Entered!");
        
        if (other.GetComponent<Health>())
        {
-           Debug.Log("Taking damage");
            other.GetComponent<Health>().TakeDamage(damage);
        }
         

@@ -147,7 +147,6 @@ public class TargetMouseSelected : MonoBehaviour
                 Selectable target = hit.collider.GetComponent<Selectable>();
                 if (target.GetWaitForClicks() > 0)
                 {
-                    Debug.Log("WaitforClicks");
                     target.Clicked();
                     return;
                 }

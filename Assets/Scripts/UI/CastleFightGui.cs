@@ -204,7 +204,7 @@ public class CastleFightGui : MonoBehaviour
         else
         {
             minutes = Mathf.RoundToInt(time / 60);
-            seconds = Mathf.RoundToInt((time - ((minutes-1) * 60)));
+            seconds = Mathf.RoundToInt(time % 60);
         }
         timeUsedText.text = minutes.ToString() + ":" + seconds.ToString();
     }

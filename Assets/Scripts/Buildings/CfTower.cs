@@ -9,7 +9,10 @@ public class CfTower : MonoBehaviour
     public bool hasTarget = false;
     public GameObject projectilePrefab;
     public GameObject projectileInstance;
+    [SerializeField] Ability currentAbility;
+    [SerializeField] bool usesAbility = false; // if false, tower uses projectilePrefab;
     public List<Health> targetNPC;
+    [SerializeField] GameObject preferTarget;
 
     public Transform goalPosition; // Use to calculate which NPC is closest to Exit
     [Tooltip("Attack interval in seconds")]
@@ -102,6 +105,7 @@ public class CfTower : MonoBehaviour
         {
             return;
         }
+        
         targetNPC.Add(target);
         hasTarget = true;
         UpdateNumberOfTargets();
@@ -136,13 +140,35 @@ public class CfTower : MonoBehaviour
 
     private void Shooting()
     {
-
         if (actualTime <= 0 && !CheckForMissing())
         {
-            myAnimator.SetTrigger("Shoot");
-            //projectile.GetComponent<Projectile>().SetRotation();
+            if (!usesAbility)
+            {
+                myAnimator.SetTrigger("Shoot");
+                //projectile.GetComponent<Projectile>().SetRotation();
+                
+            }
+            else if (usesAbility)
+            {
+                myAnimator.SetTrigger("CastSpell");
+            }
             actualTime = attackSpeedInSeconds;
         }
+        
+    }
+
+    private int CheckForPreferedTarget()
+    {
+        if (preferTarget == null) return 0;
+        for (int i = 0; i < targetNPC.Count; i++)
+        {
+            if (targetNPC[i].transform.name == preferTarget.name)
+            {
+                return i;
+            }
+        }
+
+        return 0;
     }
 
     private void Shoot()
@@ -155,6 +181,26 @@ public class CfTower : MonoBehaviour
             projectileInstance.GetComponent<Projectile>().SetTarget(targetNPC[0]);
             projectileInstance.GetComponent<Projectile>().SetProjectileDamage(projectileDamage, aoeDamage);
             myAnimator.ResetTrigger("Shoot");
+        }
+    }
+
+    private void CastSpell()
+    {
+
+        if (targetNPC.Count > 0)
+        {
+            int targetPrefered = CheckForPreferedTarget();
+            if (targetNPC[targetPrefered] != null)
+            {
+                if (targetNPC[targetPrefered].GetComponent<AbilitiesUsedOnTarget>())
+                {
+                    targetNPC[targetPrefered].GetComponent<AbilitiesUsedOnTarget>().AddAbilityUsedOnTarget(currentAbility);
+                }
+
+                myAnimator.ResetTrigger("CastSpell");
+                //isCurrentlyAttacking = false;
+            }
+
         }
     }
 

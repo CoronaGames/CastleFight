@@ -62,12 +62,12 @@ public class UnitSpawner : MonoBehaviour
         indexInCurrentWave++;
         if(indexInCurrentWave >= unitPrefab.Length)  // reached the end of unit array
         {
-            spawningActivated = false;
-           // NextWave();
+            StopSpawning();
             return;
         }
         isCurrentlySpawning = false;
         infoTextSet = false;
+        if (indexInCurrentWave >= spawningDelay.Length) return;
         timeToNextSpawn = spawningDelay[indexInCurrentWave];
 
     }
@@ -115,11 +115,15 @@ public class UnitSpawner : MonoBehaviour
 
     public void StartSpawning()
     {
+        
         spawningActivated = true;
     }
 
     public void StopSpawning()
     {
+        timeToNextSpawn = 0f;
+        indexInCurrentWave = 0;
+        isCurrentlySpawning = false;
         spawningActivated = false;
     }
 }
