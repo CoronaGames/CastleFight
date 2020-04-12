@@ -9,9 +9,7 @@ namespace Game.Combat
     public class Shooter : Attacker // Extends attacker
     {
         [SerializeField] float weaponRange = 2f;
-        [SerializeField] float projectileDamage = 10f;
         [SerializeField] float aoeDamage = 5f;
-        [SerializeField] float attackSpeedInSeconds = 0.8f;
 
         public GameObject projectilePrefab;
         public GameObject projectileInstance;
@@ -24,6 +22,13 @@ namespace Game.Combat
             myAnimator = GetComponent<Animator>();
             circleCollider = GetComponentInChildren<CircleCollider2D>();
             circleCollider.radius = weaponRange;
+            if (teamBelonging.GetTeamBelonging() == Team.TeamRed)
+            {
+                AddToBaseDamage(GlobalUpgrades.instance.GetUpgradeValueOnUpgradesIndex(0));    // Index 0 is attackDamageUpgrade
+                IncreaseCriticalChance(GlobalUpgrades.instance.GetUpgradeValueOnUpgradesIndex(2)); // Index 2 is CriticalChance
+                IncreaseAttackSpeed(GlobalUpgrades.instance.GetUpgradeValueOnUpgradesIndex(3));
+                IncreaseCriticalDamageMultiplier(GlobalUpgrades.instance.GetUpgradeValueOnUpgradesIndex(4));
+            }
         }
 
         public void Cancel()
@@ -54,11 +59,8 @@ namespace Game.Combat
             // TODO
         }
 
-
-
         private void Shoot()
         {
-            
             if (targets.Count > 0)
             {
                 if(targets[0] != null && target)
@@ -67,19 +69,20 @@ namespace Game.Combat
                     projectileInstance.GetComponent<Projectile>().SetTeamBelonging(GetComponent<TeamData>().GetTeamBelonging());
                     projectileInstance.GetComponent<Projectile>().SetTarget(target);  // TODO make ProjectileArrow more generic IE only Projectile
                     projectileInstance.GetComponent<Projectile>().SetShooter(GetComponent<Health>());
-                    projectileInstance.GetComponent<Projectile>().SetProjectileDamage(projectileDamage, aoeDamage);
-
+                    if (CheckForCriticalDamage())
+                    {
+                        projectileInstance.GetComponent<Projectile>().SetProjectileDamage(weaponDamage * criticalDamageMultiplier, aoeDamage);
+                    }
+                    else
+                    {
+                        projectileInstance.GetComponent<Projectile>().SetProjectileDamage(weaponDamage, aoeDamage);
+                    }
+                    
                     isCurrentlyAttacking = false;
                     myAnimator.ResetTrigger("Shoot");
                 }
                 
             }
         }
-
-
      }
-
-    
 }
-
-

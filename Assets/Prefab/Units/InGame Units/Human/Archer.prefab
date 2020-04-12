@@ -214,11 +214,11 @@ GameObject:
   - component: {fileID: 8667558783096584662}
   - component: {fileID: 8667558782514423408}
   - component: {fileID: 2311124948470276910}
+  - component: {fileID: -7370081627535529306}
   - component: {fileID: 1723718593483384259}
   - component: {fileID: 7691502747294072139}
   - component: {fileID: 4881448111103084348}
   - component: {fileID: 7399542561077813677}
-  - component: {fileID: -7370081627535529306}
   - component: {fileID: 3163832732896986148}
   - component: {fileID: 6229277033401092427}
   m_Layer: 0
@@ -400,6 +400,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackerScript: {fileID: 0}
   abilityCaster: {fileID: 0}
+--- !u!114 &-7370081627535529306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7332586095078146518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 784c00c9d0e969e49bfa6148980bbef8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  belongingToTeam: 0
+  miniMapRenderer: {fileID: 0}
+  flagRenderer: {fileID: 0}
 --- !u!114 &1723718593483384259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -419,16 +434,18 @@ MonoBehaviour:
   hasTarget: 0
   numberOfTargets: 0
   actualTime: 0
+  attackSpeedInSeconds: 0.6
   collisionActive: 0
   canTargetBuildings: 1
   isCurrentlyAttacking: 0
+  weaponDamage: 10
+  criticalChance: 0.1
+  criticalDamageMultiplier: 2
   myAnimator: {fileID: 0}
   teamBelonging: {fileID: 0}
   mover: {fileID: 0}
   weaponRange: 12
-  projectileDamage: 17
   aoeDamage: 5
-  attackSpeedInSeconds: 0.6
   projectilePrefab: {fileID: 4263327631448522296, guid: 3f7bcb5512e76c84e800bf5b5590a95b,
     type: 3}
   projectileInstance: {fileID: 0}
@@ -445,10 +462,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wayPoints: []
+  loopingWaypoints: []
   currentWaypoint: {fileID: 0}
   followingPlayer: 0
   totalFollowTimeInSeconds: 5
   currentFollowTime: 0
+  currentWaypointIndex: -1
   teamBelonging: {fileID: 0}
 --- !u!114 &4881448111103084348
 MonoBehaviour:
@@ -466,6 +485,7 @@ MonoBehaviour:
   normalMoveSpeed: 5
   acceptableDistanceToDestination: 0.4
   isMoving: 0
+  spriteRenderer: {fileID: 0}
   destination: {fileID: 0}
 --- !u!114 &7399542561077813677
 MonoBehaviour:
@@ -487,21 +507,6 @@ MonoBehaviour:
   hpTextTimer: 0.5
   XPvalue: 0
   moneyValue: 6
---- !u!114 &-7370081627535529306
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7332586095078146518}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 784c00c9d0e969e49bfa6148980bbef8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  belongingToTeam: 0
-  miniMapRenderer: {fileID: 0}
-  flagRenderer: {fileID: 0}
 --- !u!114 &3163832732896986148
 MonoBehaviour:
   m_ObjectHideFlags: 0

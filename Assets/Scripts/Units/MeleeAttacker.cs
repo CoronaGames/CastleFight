@@ -8,14 +8,8 @@ using Game.Core;
 public class MeleeAttacker : Attacker // Extends attacker
 {
     [SerializeField] float weaponRange = 2f;
-    [SerializeField] float weaponDamage = 10f;
-    [SerializeField] float attackSpeedInSeconds = 0.8f;
     [SerializeField] float maxTargetDistanceToAttack = .4f;
     [SerializeField] float currentTargetDistance;
-    
-    
-
-
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +19,13 @@ public class MeleeAttacker : Attacker // Extends attacker
         targets = new List<Health>();
         myAnimator = GetComponent<Animator>();
         circleCollider = GetComponentInChildren<CircleCollider2D>();
+        if (teamBelonging.GetTeamBelonging() == Team.TeamRed)
+        {
+            AddToBaseDamage(GlobalUpgrades.instance.GetUpgradeValueOnUpgradesIndex(0));    // Index 0 is attackDamageUpgrade
+            IncreaseCriticalChance(GlobalUpgrades.instance.GetUpgradeValueOnUpgradesIndex(2)); // Index 2 is CriticalChance
+            IncreaseAttackSpeed(GlobalUpgrades.instance.GetUpgradeValueOnUpgradesIndex(3));
+            IncreaseCriticalDamageMultiplier(GlobalUpgrades.instance.GetUpgradeValueOnUpgradesIndex(4));
+        }
     }
 
     void Update()
@@ -36,8 +37,6 @@ public class MeleeAttacker : Attacker // Extends attacker
         
         Timer();
     }
-
-  
 
     public bool IsCurrentTargetWithinRange()    // Only useful for melee attackers
     {
@@ -108,9 +107,17 @@ public class MeleeAttacker : Attacker // Extends attacker
     {
         isCurrentlyAttacking = false;
         if (target == null) return;
-        target.TakeDamage(weaponDamage);
+        // Check for critical damage;
+        if (CheckForCriticalDamage())
+        {
+            target.TakeDamage(weaponDamage * criticalDamageMultiplier);
+        }
+        else
+        {
+            target.TakeDamage(weaponDamage);
+        }
     }
 
-    
+
 }
 

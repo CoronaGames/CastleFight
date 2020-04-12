@@ -102,6 +102,13 @@ namespace Game.Core
         public void Die()
         {
             if (isDead) return;
+            if (GetComponent<TeamData>())
+            {
+                if(GetComponent<TeamData>().GetTeamBelonging() == Team.TeamRed)
+                {
+                    CastleFightData.instance.RemoveOnePlayerUnitCount();
+                }
+            }
             if (GetComponent<Mover>()) GetComponent<Mover>().Cancel();
             if (CastleFightData.instance != null) CheckToAddPlayerMoney();
             hpFill.parent.gameObject.SetActive(false);

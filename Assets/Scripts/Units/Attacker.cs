@@ -14,26 +14,18 @@ public class Attacker : MonoBehaviour
     public bool hasTarget = false;
     public int numberOfTargets = 0;
     public float actualTime;
+    public float attackSpeedInSeconds = 0.8f;
     public bool collisionActive = false;
     [SerializeField] bool canTargetBuildings = true;
     public bool isCurrentlyAttacking = false;
+    public float weaponDamage = 10f;
+    public float criticalChance = 0f; // Value between 0 - 1;
+    public float criticalDamageMultiplier = 1f; // Multiply weapon damage with this variable
 
     public Animator myAnimator;
     public TeamData teamBelonging;
     public Mover mover;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-        teamBelonging = GetComponent<TeamData>();
-        mover = GetComponent<Mover>();
-        targets = new List<Health>();
-        myAnimator = GetComponent<Animator>();
-        circleCollider = GetComponentInChildren<CircleCollider2D>();
-        capsuleCollider = GetComponent<CapsuleCollider2D>();
-    }
-
+    
     // Update is called once per frame
     void Update()
     {
@@ -218,5 +210,36 @@ public class Attacker : MonoBehaviour
         {
             AddTarget(attacker);
         }
+    }
+
+    public void AddToBaseDamage(float damageToAdd)
+    {
+        weaponDamage += damageToAdd;
+    }
+
+    public void IncreaseCriticalChance(float amountToIncrease)
+    {
+        criticalChance += amountToIncrease;
+    }
+
+    public void IncreaseAttackSpeed(float amountToIncrease)
+    {
+        attackSpeedInSeconds -= amountToIncrease;
+    }
+
+    public void IncreaseCriticalDamageMultiplier(float amountToIncrease)
+    {
+        criticalDamageMultiplier += amountToIncrease;
+    }
+
+    public bool CheckForCriticalDamage()
+    {
+        if (criticalChance <= 0) return false;
+        float randValue = Random.value;
+        if (randValue < criticalChance)
+        {
+            return true;
+        }
+        return false;
     }
 }

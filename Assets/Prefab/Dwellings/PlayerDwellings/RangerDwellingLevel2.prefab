@@ -722,7 +722,7 @@ GameObject:
   - component: {fileID: 93568951175603902}
   - component: {fileID: 3891420869855523434}
   - component: {fileID: 8034911341691182185}
-  m_Layer: 13
+  m_Layer: 10
   m_Name: RangerDwellingLevel2
   m_TagString: Building
   m_Icon: {fileID: 0}

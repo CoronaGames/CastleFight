@@ -17,6 +17,7 @@ public class TargetMouseSelected : MonoBehaviour
     [SerializeField] Texture2D cursorTexture;
 
     int layerMaskSelectable;
+    int layerMaskBuildings;
     int layerMaskUI;
     int layerMask;
     int layerMaskTooltip;
@@ -25,9 +26,10 @@ public class TargetMouseSelected : MonoBehaviour
 
     private void Start()
     {
-        layerMaskSelectable = 1 << 13;    // Select layerMask 13
+        //layerMaskSelectable = 1 << 13;    // Select layerMask 13
+        layerMaskBuildings = 1 << 10;    // Select layerMask 13
         layerMaskUI = 1 << 5;   // Select layerMask 5
-        layerMask = layerMaskSelectable | layerMaskUI;  // Select layermask 13 or 5
+        layerMask = layerMaskSelectable | layerMaskUI | layerMaskBuildings;  // Select layermask 13 or 5
         layerMaskTooltip = 1 << 5;
 
         Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);

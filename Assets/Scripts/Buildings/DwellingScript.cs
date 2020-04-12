@@ -45,6 +45,10 @@ public class DwellingScript : MonoBehaviour
         unitParent = transform.parent.parent.GetChild(2).gameObject;
         health = GetComponent<Health>();
         sellProfit = buyCost / 2;
+        if(teamData.GetTeamBelonging() == Team.TeamRed)
+        {
+            spawnTimeInSeconds -= GlobalUpgrades.instance.GetUpgradeValueOnUpgradesIndex(1);    // Index 1 is spawnTimeUpgrade
+        }
     }
 
     // Update is called once per frame
@@ -62,16 +66,26 @@ public class DwellingScript : MonoBehaviour
 
     private void Spawn()
     {
-       if(currentSpawnTimeInSeconds < spawnTimeInSeconds)
+        SetSpawnFill();
+        if (currentSpawnTimeInSeconds < spawnTimeInSeconds)
         {
             currentSpawnTimeInSeconds += Time.deltaTime;
         }
         else
         {
-            InstantiateUnit();
-            currentSpawnTimeInSeconds = 0f;
+            if (teamData.GetTeamBelonging() == Team.TeamRed )
+            {
+                if (CastleFightData.instance.IsMaxUnitsReached()) return;
+                InstantiateUnit();
+                currentSpawnTimeInSeconds = 0f;
+            }
+            else
+            {
+                InstantiateUnit();
+                currentSpawnTimeInSeconds = 0f;
+            }
         }
-        SetSpawnFill();
+       
     }
 
     private void SetSpawnFill()
@@ -124,6 +138,12 @@ public class DwellingScript : MonoBehaviour
             if (instance.GetComponent<TeamData>())
             {
                 instance.GetComponent<TeamData>().SetTeamBelonging(teamData.GetTeamBelonging());
+                if (teamData.GetTeamBelonging() == Team.TeamRed)
+                {
+                    CastleFightData.instance.AddPlayerUnitCount();
+                    
+                }
+
             }
 
             if (instance.GetComponent<NPCcontroller>())

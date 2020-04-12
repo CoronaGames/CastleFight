@@ -13,6 +13,7 @@ public class WorldLevelBannerScript : MonoBehaviour
     public GameObject partilceSystem;
     [SerializeField] int levelIndex = 0;
     [SerializeField] int startMoney = 0;
+    [SerializeField] int maxUnits = 10;
     [SerializeField] Sprite[] starSprites;
     [SerializeField] SpriteRenderer starRenderer;
     [SerializeField] Sprite[] buttonSprites; // Index 0: PointerExited, Index 1: PointerEntered;
@@ -107,5 +108,10 @@ public class WorldLevelBannerScript : MonoBehaviour
     public int GetStartMoney()
     {
         return startMoney;
+    }
+
+    public int GetMaxUnits()
+    {
+        return maxUnits;
     }
 }

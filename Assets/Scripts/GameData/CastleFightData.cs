@@ -11,10 +11,14 @@ public class CastleFightData : MonoBehaviour
 
     public static CastleFightData instance;
     public bool gameInitiated = false;
+
+    [Header("PlayerData:")]
     public int playerMoney = 0;
     [SerializeField] int startMoney = 200;
     [SerializeField] Text goldValueText;
-    [SerializeField] bool gameWon = false;
+    [SerializeField] int maxUnits = 10;
+    [SerializeField] int currentUnits = 0;
+    [SerializeField] bool maxUnitsReached = false;
 
     [Header("CurrentLevelData:")]
     [SerializeField] int currentLevelIndex;
@@ -153,7 +157,6 @@ public class CastleFightData : MonoBehaviour
     {
         CastleFightGui.instance.GameLost();
         UpdateMainData();
-        gameWon = false;
         gameInitiated = false;
     }
 
@@ -162,7 +165,6 @@ public class CastleFightData : MonoBehaviour
         UpdateMainData();
         CastleFightGui.instance.GameWon(timeInitiated, MainData.instance.levelScore[currentLevelIndex]);
         gameInitiated = false;
-        gameWon = true;
     }
 
 
@@ -210,7 +212,6 @@ public class CastleFightData : MonoBehaviour
         CastleFightGui.instance.ResetGame();
         totalSpawners = 0;
         gameInitiated = false;
-        gameWon = false;
         timeInitiated = 0f;
         SetMoney(startMoney);
     }
@@ -249,7 +250,14 @@ public class CastleFightData : MonoBehaviour
         waveSurvival = level.waveSurvival;
         timeSurvival = level.timeSurvival;
         SetStartMoney(level.GetStartMoney());
+        SetMaxUints(level.GetMaxUnits());
 
+
+    }
+
+    private void SetMaxUints(int maxUnits)
+    {
+        this.maxUnits = maxUnits;
     }
 
     public void AddSpawner()
@@ -272,5 +280,40 @@ public class CastleFightData : MonoBehaviour
         waveSurvival = true;
         destroyMainBase = false;
         timeSurvival = false;
+    }
+
+    public void AddPlayerUnitCount()
+    {
+        currentUnits++;
+        if(currentUnits >= maxUnits)
+        {
+            SetMaxUintsReached(true);
+        }
+        SetUnitsText();
+    }
+
+    public void RemoveOnePlayerUnitCount()
+    {
+        currentUnits--;
+        if (currentUnits < maxUnits)
+        {
+            SetMaxUintsReached(false);
+        }
+        SetUnitsText();
+    }
+
+    private void SetUnitsText()
+    {
+        CastleFightGui.instance.SetNumberOfUnitsText(currentUnits + "/" + maxUnits);
+    }
+
+    public bool IsMaxUnitsReached()
+    {
+        return maxUnitsReached;
+    }
+
+    private void SetMaxUintsReached(bool value)
+    {
+        maxUnitsReached = value;
     }
 }

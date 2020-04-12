@@ -21,6 +21,7 @@ public class CastleFightGui : MonoBehaviour
     [SerializeField] GameObject gameWonPanel;
     [SerializeField] GameObject startButton;
     [SerializeField] Text timeUsedText;
+    [SerializeField] Text unitsText;
 
     [Header("World Overview Data:")]
     [SerializeField] GameObject worldOverviewPanel;
@@ -30,9 +31,10 @@ public class CastleFightGui : MonoBehaviour
     [SerializeField] Text levelDescription;
     [SerializeField] Image levelImage;
     [SerializeField] Text starsText;
+    [SerializeField] Text playerNameText;
 
     [Header("Main Menu Data:")]
-    [SerializeField] GameObject mainMenuPanel;
+    [SerializeField] GameObject menuPanel;
 
     string selectedScene;
     [SerializeField] WorldLevelBannerScript worldLevel;
@@ -49,7 +51,9 @@ public class CastleFightGui : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        infoPopupText.enabled = false;
+        if(infoPopupText != null) infoPopupText.enabled = false;
+
+        SetPlayerName();
         SetStarsText();
         /*
         if(Scenes.instance.GetSceneString() == "LevelOverview")
@@ -58,6 +62,12 @@ public class CastleFightGui : MonoBehaviour
             inGamePanel.SetActive(false);
         }
         */
+    }
+
+    public void SetPlayerName()
+    {
+        string playerName = PlayerPrefs.GetString("currentSession");
+        playerNameText.text = "Playing As: " + playerName;
     }
 
     // Update is called once per frame
@@ -133,11 +143,13 @@ public class CastleFightGui : MonoBehaviour
         inGameMenu.SetActive(value);
     }
 
+
+
     public void LoadWorldLevel()
     {
         inGameMenu.SetActive(false);
         inGamePanel.SetActive(false);
-        mainMenuPanel.SetActive(false);
+        menuPanel.SetActive(false);
         worldOverviewPanel.SetActive(true);
         levelSelectedPanel.SetActive(false);
         starsText.gameObject.SetActive(true);
@@ -150,7 +162,7 @@ public class CastleFightGui : MonoBehaviour
     {
         inGameMenu.SetActive(false);
         inGamePanel.SetActive(false);
-        mainMenuPanel.SetActive(true);
+        menuPanel.SetActive(true);
         worldOverviewPanel.SetActive(false);
         Scenes.instance.SceneToLoad("Main Menu", 13.46f);
     }
@@ -206,11 +218,24 @@ public class CastleFightGui : MonoBehaviour
             minutes = Mathf.RoundToInt(time / 60);
             seconds = Mathf.RoundToInt(time % 60);
         }
-        timeUsedText.text = minutes.ToString() + ":" + seconds.ToString();
+
+        if(seconds < 10)
+        {
+            timeUsedText.text = minutes.ToString() + ":0" + seconds.ToString();
+        }
+        else
+        {
+            timeUsedText.text = minutes.ToString() + ":" + seconds.ToString();
+        }
     }
 
     public void UpgradesPanelButton()
     {
         upgradesPanel.SetActive(!upgradesPanel.activeSelf);
+    }
+
+    public void SetNumberOfUnitsText(string numberOfUnits)
+    {
+        unitsText.text = numberOfUnits;
     }
 }
