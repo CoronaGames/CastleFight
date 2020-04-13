@@ -25,11 +25,6 @@ public class MainData : MonoBehaviour
         LoadData();
     }
 
-    void Update()
-    {
-        
-    }
-
     public void UpdateTotalStars()  // Calculates Player stars total
     {
         int score = 0;

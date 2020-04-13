@@ -116,6 +116,12 @@ public class Mover : MonoBehaviour
         currentMoveSpeed = normalMoveSpeed;
     }
 
+    public void IncreaseMoveSpeed(float amountToIncrease)
+    {
+        normalMoveSpeed += amountToIncrease;
+        ResetMoveSpeed();
+    }
+
     public bool IsCurrentTargetWithinRange() 
     {
         float currentTargetDistance = Mathf.Abs(destination.transform.position.x - transform.position.x);

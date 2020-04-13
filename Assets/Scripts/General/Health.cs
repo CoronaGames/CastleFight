@@ -176,6 +176,13 @@ namespace Game.Core
         {
             return isUnit;
         }
+
+        public void AddMaxHealth(float amountToAdd)
+        {
+            maxHealthPoints += amountToAdd;
+            healthPoints = maxHealthPoints;
+            SetHpFill();
+        }
     }
 
    

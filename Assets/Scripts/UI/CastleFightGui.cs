@@ -27,6 +27,7 @@ public class CastleFightGui : MonoBehaviour
     [SerializeField] GameObject worldOverviewPanel;
     [SerializeField] GameObject levelSelectedPanel;
     [SerializeField] GameObject upgradesPanel;
+    [SerializeField] GameObject unitUpgradesPanel;
     [SerializeField] Text levelHeader;
     [SerializeField] Text levelDescription;
     [SerializeField] Image levelImage;
@@ -229,9 +230,14 @@ public class CastleFightGui : MonoBehaviour
         }
     }
 
-    public void UpgradesPanelButton()
+    public void GlobalUpgradesPanelButton()
     {
         upgradesPanel.SetActive(!upgradesPanel.activeSelf);
+    }
+
+    public void UnitUpgradesPanelButton()
+    {
+        unitUpgradesPanel.SetActive(!unitUpgradesPanel.activeSelf);
     }
 
     public void SetNumberOfUnitsText(string numberOfUnits)
