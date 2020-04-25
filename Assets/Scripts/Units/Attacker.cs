@@ -22,11 +22,33 @@ public class Attacker : MonoBehaviour
     public float criticalChance = 0f; // Value between 0 - 1;
     public float criticalDamageMultiplier = 1f; // Multiply weapon damage with this variable
 
+
     public Animator myAnimator;
     public TeamData teamBelonging;
     public Mover mover;
-    
+
     // Update is called once per frame
+
+    public virtual void Start()
+    {
+        teamBelonging = GetComponent<TeamData>();
+        mover = GetComponent<Mover>();
+        targets = new List<Health>();
+        myAnimator = GetComponent<Animator>();
+        circleCollider = GetComponentInChildren<CircleCollider2D>();
+        if (teamBelonging.GetTeamBelonging() == Team.TeamRed)
+        {
+            UnitUpgrades.instance.AddUpgradesToUnit(GetComponent<Health>());
+
+            AddToBaseDamage(GlobalUpgrades.instance.GetUpgradeValueOnUpgradesIndex(0));    // Index 0 is attackDamageUpgrade
+            IncreaseCriticalChance(GlobalUpgrades.instance.GetUpgradeValueOnUpgradesIndex(2)); // Index 2 is CriticalChance
+            IncreaseAttackSpeed(GlobalUpgrades.instance.GetUpgradeValueOnUpgradesIndex(3));
+            IncreaseCriticalDamageMultiplier(GlobalUpgrades.instance.GetUpgradeValueOnUpgradesIndex(4));
+        }
+        
+    }
+
+
     void Update()
     {
         Timer();

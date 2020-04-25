@@ -2,6 +2,8 @@
 {
     Health,
     Damage,
+    CriticalDamage,
+    CriticalChance,
     Defense,
     Speed,
     None

@@ -64,7 +64,7 @@ public class UnitUpgrades : MonoBehaviour
         // Check if unit type has upgrades
         for(int i=0; i<unitsArray.Length; i++)
         {
-            if (unitsArray[i].GetUnitType() == unit.transform.name)
+            if (unitsArray[i].GetUnitType() == unit.GetName())
             {
                 unitsArrayIndex = i;
                 break;
@@ -89,7 +89,7 @@ public class UnitUpgrades : MonoBehaviour
     {
         if(allUpgrades[upgradeReference].GetUpgradeType() == UpgradeType.None)
         {
-            // Used For Empty Slots
+            // Used For Empty Slots / do nothing
         }
         else if (allUpgrades[upgradeReference].GetUpgradeType() == UpgradeType.Defense)
         {
@@ -106,6 +106,14 @@ public class UnitUpgrades : MonoBehaviour
         else if (allUpgrades[upgradeReference].GetUpgradeType() == UpgradeType.Damage)
         {
             unit.GetComponent<Attacker>().AddToBaseDamage(allUpgrades[upgradeReference].GetUpgradeValue());
+        }
+        else if (allUpgrades[upgradeReference].GetUpgradeType() == UpgradeType.CriticalChance)
+        {
+            unit.GetComponent<Attacker>().IncreaseCriticalChance(allUpgrades[upgradeReference].GetUpgradeValue());
+        }
+        else if (allUpgrades[upgradeReference].GetUpgradeType() == UpgradeType.CriticalDamage)
+        {
+            unit.GetComponent<Attacker>().IncreaseCriticalDamageMultiplier(allUpgrades[upgradeReference].GetUpgradeValue());
         }
         else
         {

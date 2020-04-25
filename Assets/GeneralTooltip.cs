@@ -9,6 +9,11 @@ public class GeneralTooltip : MonoBehaviour
     [SerializeField] Text tooltipDescription;
     [SerializeField] float yAxisOffset = 100f;
 
+    private void Start()
+    {
+  
+    }
+
     public void SetTitle(string description)
     {
         tooltipTitle.text = description;

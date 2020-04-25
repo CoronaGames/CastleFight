@@ -20,6 +20,7 @@ public class AbilityCaster : MonoBehaviour
     public bool isCurrentlyAttacking = false;
     [SerializeField] float attackSpeedInSeconds = 1f;
     [SerializeField] float waitToCastAfterspawnInSeconds = 0f;
+    [SerializeField] bool targetFriendlyUnits = false;
 
     public Animator myAnimator;
     public TeamData teamBelonging;
@@ -34,6 +35,7 @@ public class AbilityCaster : MonoBehaviour
         circleCollider = GetComponentInChildren<CircleCollider2D>();
         capsuleCollider = GetComponent<CapsuleCollider2D>();
         actualTime = waitToCastAfterspawnInSeconds;
+        targetFriendlyUnits = currentAbility.IsTargetFriendlyUnits();
     }
 
     // Update is called once per frame
@@ -84,14 +86,46 @@ public class AbilityCaster : MonoBehaviour
         if (CheckForMissing()) return false;
         if (actualTime <= 0 && !CheckForMissing() && !GetComponent<Health>().IsDead())
         {
+            if (currentAbility.GetAbilityFlag() == Flag.Heal)
+            {
+                if (target.GetHp() == target.GetMaxHp())
+                {
+                    if (ChooseTargetToHeal())
+                    {
+
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
             isCurrentlyAttacking = true;
             myAnimator.SetTrigger("CastAbility");
             actualTime = attackSpeedInSeconds;
+            return true;
 
         }
-        return false;
+        else
+        {
+            return false;
+        }
+
 
         // TODO
+    }
+
+    private bool ChooseTargetToHeal()
+    {
+        for(int i = 0; i<targets.Count; i++)
+        {
+            if (!targets[i].HasMaxHp())
+            {
+                ChooseTarget(targets[i]);
+                return true;
+            }
+        }
+        return false;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -99,13 +133,27 @@ public class AbilityCaster : MonoBehaviour
 
         if (other.GetComponent<Health>())
         {
-            if ((other.GetComponent<TeamData>().GetTeamBelonging() != teamBelonging.GetTeamBelonging()) && other.GetComponent<Health>().GetHp() > 0f)
+            if (targetFriendlyUnits)
             {
-                if (!CheckIfTargetIsInList(other.GetComponent<Health>()))
+                if ((other.GetComponent<TeamData>().GetTeamBelonging() == teamBelonging.GetTeamBelonging()) && other.GetComponent<Health>().IsUnit() && other.GetComponent<Health>().GetHp() > 0f )
                 {
-                    AddTarget(other.GetComponent<Health>());
+                    if (!CheckIfTargetIsInList(other.GetComponent<Health>()))
+                    {
+                        AddTarget(other.GetComponent<Health>());
+                    }
                 }
             }
+            else
+            {
+                if ((other.GetComponent<TeamData>().GetTeamBelonging() != teamBelonging.GetTeamBelonging()) && other.GetComponent<Health>().GetHp() > 0f)
+                {
+                    if (!CheckIfTargetIsInList(other.GetComponent<Health>()))
+                    {
+                        AddTarget(other.GetComponent<Health>());
+                    }
+                }
+            }
+          
         }
     }
 
@@ -113,11 +161,22 @@ public class AbilityCaster : MonoBehaviour
     {
         if (other.GetComponent<Health>())
         {
-            if ((other.GetComponent<TeamData>().GetTeamBelonging() != teamBelonging.GetTeamBelonging()))
+            if (targetFriendlyUnits)
             {
-                RemoveTarget(other.GetComponent<Health>());
+                if ((other.GetComponent<TeamData>().GetTeamBelonging() == teamBelonging.GetTeamBelonging()) && other.GetComponent<Health>().IsUnit())
+                {
+                    RemoveTarget(other.GetComponent<Health>());
+                }
+            }
+            else
+            {
+                if ((other.GetComponent<TeamData>().GetTeamBelonging() != teamBelonging.GetTeamBelonging()))
+                {
+                    RemoveTarget(other.GetComponent<Health>());
+                }
             }
         }
+            
     }
 
     public bool CheckIfTargetIsInList(Health target)
@@ -232,6 +291,7 @@ public class AbilityCaster : MonoBehaviour
         {
             if (target != null)
             {
+              
                 if (target.GetComponent<AbilitiesUsedOnTarget>())
                 {
                     target.GetComponent<AbilitiesUsedOnTarget>().AddAbilityUsedOnTarget(currentAbility);

@@ -46,7 +46,7 @@ MonoBehaviour:
   upgradeId: 2
   symbol: {fileID: 21300000, guid: 4e9169456207b2f4bb400ed1e62c0130, type: 3}
   upgradeName: Power Booster
-  description: 5 attack damage bonus.
+  description: <color=green>2.5</color> attack damage bonus.
   equippable: 1
   worksOnUnitTypes:
   - Archer
@@ -54,4 +54,4 @@ MonoBehaviour:
   - Soldier
   - Wizard
   upgradeType: 1
-  upgradeValue: 5
+  upgradeValue: 2.5

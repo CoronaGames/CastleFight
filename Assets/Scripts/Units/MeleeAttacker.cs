@@ -12,20 +12,9 @@ public class MeleeAttacker : Attacker // Extends attacker
     [SerializeField] float currentTargetDistance;
 
     // Start is called before the first frame update
-    void Start()
+    public override void Start()
     {
-        teamBelonging = GetComponent<TeamData>();
-        mover = GetComponent<Mover>();
-        targets = new List<Health>();
-        myAnimator = GetComponent<Animator>();
-        circleCollider = GetComponentInChildren<CircleCollider2D>();
-        if (teamBelonging.GetTeamBelonging() == Team.TeamRed)
-        {
-            AddToBaseDamage(GlobalUpgrades.instance.GetUpgradeValueOnUpgradesIndex(0));    // Index 0 is attackDamageUpgrade
-            IncreaseCriticalChance(GlobalUpgrades.instance.GetUpgradeValueOnUpgradesIndex(2)); // Index 2 is CriticalChance
-            IncreaseAttackSpeed(GlobalUpgrades.instance.GetUpgradeValueOnUpgradesIndex(3));
-            IncreaseCriticalDamageMultiplier(GlobalUpgrades.instance.GetUpgradeValueOnUpgradesIndex(4));
-        }
+        base.Start();
     }
 
     void Update()

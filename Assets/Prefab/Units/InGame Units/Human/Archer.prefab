@@ -507,6 +507,7 @@ MonoBehaviour:
   hpTextTimer: 0.5
   XPvalue: 0
   moneyValue: 6
+  unitName: Archer
 --- !u!114 &3163832732896986148
 MonoBehaviour:
   m_ObjectHideFlags: 0

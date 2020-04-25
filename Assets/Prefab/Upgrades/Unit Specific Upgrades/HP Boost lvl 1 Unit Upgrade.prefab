@@ -46,7 +46,7 @@ MonoBehaviour:
   upgradeId: 1
   symbol: {fileID: 21300000, guid: caa625d8f8ff113499c2fd9dc36052de, type: 3}
   upgradeName: Leaf of Life
-  description: Boosts hit points of units by 10.
+  description: Boosts hit points of units by <color=green>5</color>.
   equippable: 1
   worksOnUnitTypes:
   - Archer
@@ -54,4 +54,4 @@ MonoBehaviour:
   - Soldier
   - Wizard
   upgradeType: 0
-  upgradeValue: 10
+  upgradeValue: 5

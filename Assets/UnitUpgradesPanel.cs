@@ -10,6 +10,7 @@ public class UnitUpgradesPanel : MonoBehaviour
     [SerializeField] Text unitNameText;
     [SerializeField] Button[] activeUpgrades;
     [SerializeField] Button[] abilitiesAvailableList;
+    [SerializeField] GameObject toolTip;
     // Start is called before the first frame update
     UnitUpgradeCurrentlyOnUnitType unitSelected;
     void Start()
@@ -39,7 +40,7 @@ public class UnitUpgradesPanel : MonoBehaviour
         int bufferValue = unitSelected.GetUnitUpgrades()[index];
         UnitUpgrades.instance.AddToAvailableUpgrades(bufferValue);
         unitSelected.GetUnitUpgrades()[index] = 0;
-
+        toolTip.SetActive(false);
         RefreshPanel();
     }
 
@@ -61,7 +62,7 @@ public class UnitUpgradesPanel : MonoBehaviour
             // Print error and return
             return;
         }
-
+        toolTip.SetActive(false);
         UnitUpgrades.instance.RemoveFromAvailableUpgrades(index);
         RefreshPanel();
     }
@@ -80,6 +81,7 @@ public class UnitUpgradesPanel : MonoBehaviour
             if(activeUpgReference[i] == 0)
             {
                 activeUpgrades[i].interactable = false;
+                activeUpgrades[i].GetComponent<UnitUpgradeButton>().SetTitleAndDescription("", "");
             }
             else
             {
@@ -105,6 +107,7 @@ public class UnitUpgradesPanel : MonoBehaviour
             abilitiesAvailableList[i].image.sprite = upgradeList[i].GetSprite();
             if(upgradeList[i].GetUpgradeType() == UpgradeType.None)
             {
+                abilitiesAvailableList[i].GetComponent<UnitUpgradeButton>().SetTitleAndDescription("", "");
                 abilitiesAvailableList[i].interactable = false;
             }
             else

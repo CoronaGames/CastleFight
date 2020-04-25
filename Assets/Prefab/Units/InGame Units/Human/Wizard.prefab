@@ -474,6 +474,7 @@ MonoBehaviour:
   hpTextTimer: 0.5
   XPvalue: 0
   moneyValue: 8
+  unitName: Wizard
 --- !u!114 &3163832732896986148
 MonoBehaviour:
   m_ObjectHideFlags: 0

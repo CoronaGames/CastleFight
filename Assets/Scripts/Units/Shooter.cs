@@ -14,21 +14,11 @@ namespace Game.Combat
         public GameObject projectilePrefab;
         public GameObject projectileInstance;
 
-        void Start()
+        public override void Start()
         {
-            teamBelonging = GetComponent<TeamData>();
-            mover = GetComponent<Mover>();
-            targets = new List<Health>();
-            myAnimator = GetComponent<Animator>();
-            circleCollider = GetComponentInChildren<CircleCollider2D>();
+            
+            base.Start();
             circleCollider.radius = weaponRange;
-            if (teamBelonging.GetTeamBelonging() == Team.TeamRed)
-            {
-                AddToBaseDamage(GlobalUpgrades.instance.GetUpgradeValueOnUpgradesIndex(0));    // Index 0 is attackDamageUpgrade
-                IncreaseCriticalChance(GlobalUpgrades.instance.GetUpgradeValueOnUpgradesIndex(2)); // Index 2 is CriticalChance
-                IncreaseAttackSpeed(GlobalUpgrades.instance.GetUpgradeValueOnUpgradesIndex(3));
-                IncreaseCriticalDamageMultiplier(GlobalUpgrades.instance.GetUpgradeValueOnUpgradesIndex(4));
-            }
         }
 
         public void Cancel()

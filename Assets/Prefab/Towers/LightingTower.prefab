@@ -2501,12 +2501,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthPoints: 750
   maxHealthPoints: 750
-  isUnit: 1
+  isUnit: 0
   hpFill: {fileID: 8050632430397189765}
   hpText: {fileID: 2323355609663930578}
   hpTextTimer: 0.5
   XPvalue: 0
   moneyValue: 0
+  unitName: 
 --- !u!114 &4057207805666076106
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2542,6 +2543,7 @@ MonoBehaviour:
     type: 3}
   usesAbility: 1
   targetNPC: []
+  preferTarget: {fileID: 0}
   goalPosition: {fileID: 0}
   myCircleCollider: {fileID: 0}
   mySpriteRenderer: {fileID: 0}

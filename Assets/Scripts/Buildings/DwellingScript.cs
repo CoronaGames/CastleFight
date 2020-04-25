@@ -13,6 +13,7 @@ public class DwellingScript : MonoBehaviour
     [SerializeField] Transform[] waypointsList;
     [SerializeField] Transform[] loopingWaypointsList;
 
+
     [SerializeField] float currentSpawnTimeInSeconds;
     [SerializeField] Transform spawnFill;
     [SerializeField] GameObject baseDwelling;
@@ -32,6 +33,8 @@ public class DwellingScript : MonoBehaviour
     [SerializeField] int numberOfUnitsToSpawnPerCountDown = 1;
     [SerializeField] float spawnTimeInSeconds;
     [SerializeField] bool spawningActivated = true;
+    [SerializeField] UnitManagerPanel unitManager; // Defines max number of units available for spawning og currentUnitType;
+    [SerializeField] int unitIndexForUnitManager;
 
 
     // Start is called before the first frame update
@@ -48,6 +51,7 @@ public class DwellingScript : MonoBehaviour
         if(teamData.GetTeamBelonging() == Team.TeamRed)
         {
             spawnTimeInSeconds -= GlobalUpgrades.instance.GetUpgradeValueOnUpgradesIndex(1);    // Index 1 is spawnTimeUpgrade
+            unitManager = FindObjectOfType<UnitManagerPanel>();
         }
     }
 
@@ -75,7 +79,7 @@ public class DwellingScript : MonoBehaviour
         {
             if (teamData.GetTeamBelonging() == Team.TeamRed )
             {
-                if (CastleFightData.instance.IsMaxUnitsReached()) return;
+                if (CastleFightData.instance.IsMaxUnitsReached() || CheckIfUnitCapacityReached() || CastleFightData.instance.IsPauseSpawningUnits()) return;
                 InstantiateUnit();
                 currentSpawnTimeInSeconds = 0f;
             }
@@ -86,6 +90,15 @@ public class DwellingScript : MonoBehaviour
             }
         }
        
+    }
+
+    private bool CheckIfUnitCapacityReached()
+    {
+        int currentUnits = CastleFightData.instance.GetAmountOfUnit(unitIndexForUnitManager);
+        int maxUnits = unitManager.GetMaxUnitsOnIndex(unitIndexForUnitManager);
+        if (maxUnits < 0) return false;
+        if (currentUnits >= maxUnits || maxUnits == 0) return true;
+        return false;
     }
 
     private void SetSpawnFill()

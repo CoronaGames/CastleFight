@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42d3e684a27ce8f418e89eaaf545523e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upgradesActive: 010000000000000000000000
+  upgradesActive: 000000000000000000000000
   unitType: Archer
   displaySprite: {fileID: 21300000, guid: 303e8d2bde7b31c498c9348384ac022d, type: 3}
   unitPrefab: {fileID: 7332586095078146518, guid: 896bf59d459eb144c8d2587106b7a5a6,

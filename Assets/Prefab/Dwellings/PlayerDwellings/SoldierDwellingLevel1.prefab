@@ -845,6 +845,8 @@ MonoBehaviour:
   numberOfUnitsToSpawnPerCountDown: 1
   spawnTimeInSeconds: 5
   spawningActivated: 1
+  unitManager: {fileID: 0}
+  unitIndexForUnitManager: 1
 --- !u!114 &1441105178847028305
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -874,12 +876,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthPoints: 500
   maxHealthPoints: 500
-  isUnit: 1
+  isUnit: 0
   hpFill: {fileID: 4610527581244415478}
   hpText: {fileID: 4610527581497402300}
   hpTextTimer: 0.5
   XPvalue: 0
   moneyValue: 0
+  unitName: 
 --- !u!114 &3891420869855523434
 MonoBehaviour:
   m_ObjectHideFlags: 0

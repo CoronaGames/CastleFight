@@ -24,6 +24,11 @@ namespace Game.Combat
         [SerializeField] Health target;
         [SerializeField] Health shooter;
 
+
+        // Make abilities for projectiles TODO
+        [Header("FlagData:")]
+        [SerializeField] Flag projectileFlag;
+
         bool isExploding = false;
         Transform spawnPosition;
         Vector3 targetPosition;

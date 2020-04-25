@@ -15,6 +15,7 @@ public class Ability : MonoBehaviour
     [SerializeField] Color color;
     [SerializeField] string animatorCallString;
     [SerializeField] bool onlyTargetUnits = false;
+    [SerializeField] bool targetFriendlyUnits = false;
 
 
     [SerializeField] float coolDown;
@@ -32,7 +33,7 @@ public class Ability : MonoBehaviour
     [Tooltip("Between 0 and 1")]
     [SerializeField] float movementReductionFactor; // between 0 and 1
 
-    [Header("AOE: ")]
+    [Header("Heal: ")]
     [SerializeField] float healAmount;
 
     [Header("AOE: ")]
@@ -153,5 +154,15 @@ public class Ability : MonoBehaviour
     public bool OnlyTargetUnits()
     {
         return onlyTargetUnits;
+    }
+
+    public bool IsTargetFriendlyUnits()
+    {
+        return targetFriendlyUnits;
+    }
+
+    public Flag GetAbilityFlag()
+    {
+        return flagCurrent;
     }
 }

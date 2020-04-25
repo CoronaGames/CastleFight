@@ -468,6 +468,7 @@ MonoBehaviour:
   hpTextTimer: 0.5
   XPvalue: 0
   moneyValue: 20
+  unitName: Griffin
 --- !u!114 &3325176892794068900
 MonoBehaviour:
   m_ObjectHideFlags: 0

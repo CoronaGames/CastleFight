@@ -123,12 +123,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthPoints: 1000
   maxHealthPoints: 1000
-  isUnit: 1
+  isUnit: 0
   hpFill: {fileID: 8416482615498339411}
   hpText: {fileID: 5494217228364022283}
   hpTextTimer: 0.5
   XPvalue: 0
   moneyValue: 0
+  unitName: 
 --- !u!114 &3873057008624324170
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -11,6 +11,7 @@ public class CastleFightData : MonoBehaviour
 
     public static CastleFightData instance;
     public bool gameInitiated = false;
+    
 
     [Header("PlayerData:")]
     public int playerMoney = 0;
@@ -19,6 +20,11 @@ public class CastleFightData : MonoBehaviour
     [SerializeField] int maxUnits = 10;
     [SerializeField] int currentUnits = 0;
     [SerializeField] bool maxUnitsReached = false;
+    [SerializeField] bool pauseSpawningUnits = false;
+    [SerializeField] LinkedList<Health> activeUnitsPlayer;
+    [SerializeField] LinkedList<Health> activeUnitsEnemy;   // Used for global spells etc;
+    public int[] amountOfUnitTypes; // Index 0 = Archer, Index 1 = Soldier, Index 2 = Wizard;
+    
 
     [Header("CurrentLevelData:")]
     [SerializeField] int currentLevelIndex;
@@ -56,6 +62,8 @@ public class CastleFightData : MonoBehaviour
             Destroy(this);
         }
         goldValueText.text = playerMoney.ToString();
+        activeUnitsPlayer = new LinkedList<Health>();
+        activeUnitsEnemy = new LinkedList<Health>();
     }
 
     // Update is called once per frame
@@ -213,7 +221,10 @@ public class CastleFightData : MonoBehaviour
         totalSpawners = 0;
         gameInitiated = false;
         timeInitiated = 0f;
+        currentUnits = 0;
+        timeInitiated = 0f;
         SetMoney(startMoney);
+        pauseSpawningUnits = false;
     }
 
     public void UpdateMainData()
@@ -258,6 +269,11 @@ public class CastleFightData : MonoBehaviour
     private void SetMaxUints(int maxUnits)
     {
         this.maxUnits = maxUnits;
+    }
+
+    public int GetMaxUnits()
+    {
+        return maxUnits;
     }
 
     public void AddSpawner()
@@ -315,5 +331,73 @@ public class CastleFightData : MonoBehaviour
     private void SetMaxUintsReached(bool value)
     {
         maxUnitsReached = value;
+    }
+
+    public void AddSpawnedUnit(Health unit)
+    {
+        if(unit.GetComponent<TeamData>().GetTeamBelonging() == Team.TeamRed)
+        {
+            activeUnitsPlayer.AddFirst(unit);
+            UpdateUnitManager(unit, false);
+        }
+        else
+        {
+            activeUnitsEnemy.AddFirst(unit);
+        }
+    }
+
+    public void RemoveUnit(Health unit)
+    {
+        if (unit.GetComponent<TeamData>().GetTeamBelonging() == Team.TeamRed)
+        {
+            if (activeUnitsPlayer.Contains(unit))
+            {
+                activeUnitsPlayer.Remove(unit);
+                UpdateUnitManager(unit, true);
+            }
+
+        }
+        else
+        {
+            if (activeUnitsEnemy.Contains(unit))
+            {
+                activeUnitsEnemy.Remove(unit);
+            }
+        }
+    }
+
+    // Used for dwellings to keep count of how many units are alive of each unit type;
+    private void UpdateUnitManager(Health unit, bool isRemoving)    // Bool true if you should remove
+    {
+        if(unit.GetName() == "Archer")
+        {
+            if (isRemoving) amountOfUnitTypes[0]--;
+            else amountOfUnitTypes[0]++;
+        }
+        else if(unit.GetName() == "Soldier")
+        {
+            if (isRemoving) amountOfUnitTypes[1]--;
+            else amountOfUnitTypes[1]++;
+        }
+        else if(unit.GetName() == "Wizard")
+        {
+            if (isRemoving) amountOfUnitTypes[2]--;
+            else amountOfUnitTypes[2]++;
+        }
+    }
+
+    public int GetAmountOfUnit(int unitTypeIndex)
+    {
+        return amountOfUnitTypes[unitTypeIndex];
+    }
+
+    public bool IsPauseSpawningUnits()
+    {
+        return pauseSpawningUnits;
+    }
+
+    public void SetPauseSpawningUnits(bool value)
+    {
+        pauseSpawningUnits = value;
     }
 }

@@ -19,11 +19,16 @@ namespace Game.Core
         float hpTextTimerCurrent = 0f;
         [SerializeField] int XPvalue;
         [SerializeField] int moneyValue;
+        [SerializeField] string unitName;
 
         private void Start()
         {
             healthPoints = maxHealthPoints;
             hpText.gameObject.SetActive(false);
+            if (isUnit)
+            {
+                CastleFightData.instance.AddSpawnedUnit(this);
+            }
         }
 
         public int GetXPvalue()
@@ -34,6 +39,12 @@ namespace Game.Core
         private void Update()
         {
             Timers();
+        }
+
+
+        public string GetName()
+        {
+            return unitName;
         }
 
         public float GetHp()
@@ -102,12 +113,14 @@ namespace Game.Core
         public void Die()
         {
             if (isDead) return;
-            if (GetComponent<TeamData>())
+            if (GetComponent<TeamData>() && isUnit)
             {
                 if(GetComponent<TeamData>().GetTeamBelonging() == Team.TeamRed)
                 {
                     CastleFightData.instance.RemoveOnePlayerUnitCount();
+                    
                 }
+                CastleFightData.instance.RemoveUnit(this);
             }
             if (GetComponent<Mover>()) GetComponent<Mover>().Cancel();
             if (CastleFightData.instance != null) CheckToAddPlayerMoney();
@@ -177,11 +190,21 @@ namespace Game.Core
             return isUnit;
         }
 
+        public bool HasMaxHp()
+        {
+            return maxHealthPoints == healthPoints;
+        }
+
         public void AddMaxHealth(float amountToAdd)
         {
             maxHealthPoints += amountToAdd;
             healthPoints = maxHealthPoints;
             SetHpFill();
+        }
+
+        public float GetMaxHp()
+        {
+            return maxHealthPoints;
         }
     }
 

@@ -176,6 +176,7 @@ GameObject:
   - component: {fileID: 1151349843374588557}
   - component: {fileID: 4057086854662540454}
   - component: {fileID: 3525530054402723896}
+  - component: {fileID: 4984816860393286115}
   m_Layer: 0
   m_Name: GameData
   m_TagString: Untagged
@@ -216,6 +217,8 @@ MonoBehaviour:
   maxUnits: 10
   currentUnits: 0
   maxUnitsReached: 0
+  pauseSpawningUnits: 0
+  amountOfUnitTypes: 000000000000000000000000
   currentLevelIndex: 0
   highScoreValues:
   - 0
@@ -309,11 +312,13 @@ MonoBehaviour:
   - {fileID: 3779072956677180438, guid: 3f12c50268e22c341830d58016795fc9, type: 3}
   - {fileID: 3779072956677180438, guid: e2f5de75dbea19c4aafe37f21a5ef175, type: 3}
   - {fileID: 3779072956677180438, guid: 00a27c9c7f85cce4285feeca1cd43ccc, type: 3}
+  - {fileID: 3779072956677180438, guid: 558dedcd20a122147a1f555389410aee, type: 3}
+  - {fileID: 3779072956677180438, guid: 29e3ab3f0111c834ab3c2b705d122162, type: 3}
   availableUpgrades:
   - {fileID: 3779072956677180438, guid: 00a27c9c7f85cce4285feeca1cd43ccc, type: 3}
   - {fileID: 3779072956677180438, guid: e2f5de75dbea19c4aafe37f21a5ef175, type: 3}
-  - {fileID: 3779072956677180438, guid: 3f12c50268e22c341830d58016795fc9, type: 3}
-  - {fileID: 3779072956677180438, guid: 3f12c50268e22c341830d58016795fc9, type: 3}
+  - {fileID: 3779072956677180438, guid: 558dedcd20a122147a1f555389410aee, type: 3}
+  - {fileID: 3779072956677180438, guid: 29e3ab3f0111c834ab3c2b705d122162, type: 3}
   - {fileID: 3779072956677180438, guid: 3f12c50268e22c341830d58016795fc9, type: 3}
   - {fileID: 3779072956677180438, guid: 3f12c50268e22c341830d58016795fc9, type: 3}
   - {fileID: 3779072956677180438, guid: 3f12c50268e22c341830d58016795fc9, type: 3}
@@ -335,6 +340,18 @@ MonoBehaviour:
   - {fileID: 8281224702205339404, guid: 73b9e4d59993bb54e92ab6a985a62076, type: 3}
   - {fileID: 8281224702205339404, guid: 08171bf510cbb6e41929899b7027409e, type: 3}
   - {fileID: 8281224702205339404, guid: b1c334cd87f378343b5e472f1cbc4f25, type: 3}
+--- !u!114 &4984816860393286115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2531430016901097176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc024b8eb3dd6b4429f4f8d6ef9e9c17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2531430016221510872
 PrefabInstance:
   m_ObjectHideFlags: 0
