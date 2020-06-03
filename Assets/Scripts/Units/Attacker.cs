@@ -61,6 +61,8 @@ public class Attacker : MonoBehaviour
 
     public bool IsCurrentTargetCloser(int otherIndex)
     {
+        if (targets[otherIndex] == null) return false;
+
         float currentTargetDeltaDistance;
         float otherTargetDeltaDistance;
 
@@ -112,7 +114,7 @@ public class Attacker : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.GetComponent<Health>())
+        if (other.GetComponent<Health>() && !other.GetComponent<Health>().IsDead())
         {
             if ((other.GetComponent<TeamData>().GetTeamBelonging() != teamBelonging.GetTeamBelonging()))
             {

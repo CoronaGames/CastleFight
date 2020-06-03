@@ -28,10 +28,12 @@ public class CastleFightGui : MonoBehaviour
     [SerializeField] GameObject levelSelectedPanel;
     [SerializeField] GameObject upgradesPanel;
     [SerializeField] GameObject unitUpgradesPanel;
+    [SerializeField] GameObject bountyStorePanel;
     [SerializeField] Text levelHeader;
     [SerializeField] Text levelDescription;
     [SerializeField] Image levelImage;
     [SerializeField] Text starsText;
+    [SerializeField] Text bountyText;
     [SerializeField] Text playerNameText;
 
     [Header("Main Menu Data:")]
@@ -56,6 +58,7 @@ public class CastleFightGui : MonoBehaviour
 
         SetPlayerName();
         SetStarsText();
+        SetBountyText();
         /*
         if(Scenes.instance.GetSceneString() == "LevelOverview")
         {
@@ -154,7 +157,9 @@ public class CastleFightGui : MonoBehaviour
         worldOverviewPanel.SetActive(true);
         levelSelectedPanel.SetActive(false);
         starsText.gameObject.SetActive(true);
+        bountyText.gameObject.SetActive(true);
         SetStarsText();
+        SetBountyText();
         Scenes.instance.SceneToLoad("Level Overview", 21.4f);
         
     }
@@ -173,7 +178,7 @@ public class CastleFightGui : MonoBehaviour
         
     }
 
-    public void GameLost()
+    public void GameLost(int bountyToAdd, int bountyCurrent)
     {
         backgroundOverlay.SetActive(true);
         gameOverPanel.SetActive(true);
@@ -181,7 +186,7 @@ public class CastleFightGui : MonoBehaviour
 
     }
 
-    public void GameWon(float roundTime, int score)
+    public void GameWon(float roundTime, int score, int bountyToAdd, int bountyCurrent)
     {
         topPanel.SetActive(false);
         backgroundOverlay.SetActive(true);
@@ -202,6 +207,11 @@ public class CastleFightGui : MonoBehaviour
     public void SetStarsText()
     {
         starsText.text = MainData.instance.totalStars.ToString();
+    }
+
+    public void SetBountyText()
+    {
+        bountyText.text = MainData.instance.totalBounty.ToString();
     }
 
     public void SetTimeUsedText(float time)
@@ -238,6 +248,11 @@ public class CastleFightGui : MonoBehaviour
     public void UnitUpgradesPanelButton()
     {
         unitUpgradesPanel.SetActive(!unitUpgradesPanel.activeSelf);
+    }
+
+    public void BountyStorePanelButton()
+    {
+        bountyStorePanel.SetActive(!bountyStorePanel.activeSelf);
     }
 
     public void SetNumberOfUnitsText(string numberOfUnits)

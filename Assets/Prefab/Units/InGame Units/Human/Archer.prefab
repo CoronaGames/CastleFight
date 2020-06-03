@@ -446,6 +446,7 @@ MonoBehaviour:
   mover: {fileID: 0}
   weaponRange: 12
   aoeDamage: 5
+  attackSound: 0
   projectilePrefab: {fileID: 4263327631448522296, guid: 3f7bcb5512e76c84e800bf5b5590a95b,
     type: 3}
   projectileInstance: {fileID: 0}
@@ -508,6 +509,7 @@ MonoBehaviour:
   XPvalue: 0
   moneyValue: 6
   unitName: Archer
+  dieSound: 4
 --- !u!114 &3163832732896986148
 MonoBehaviour:
   m_ObjectHideFlags: 0

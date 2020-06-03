@@ -20,6 +20,7 @@ namespace Game.Core
         [SerializeField] int XPvalue;
         [SerializeField] int moneyValue;
         [SerializeField] string unitName;
+        [SerializeField] Sound dieSound;
 
         private void Start()
         {
@@ -28,6 +29,7 @@ namespace Game.Core
             if (isUnit)
             {
                 CastleFightData.instance.AddSpawnedUnit(this);
+                if (GetComponent<TeamData>().GetTeamBelonging() == Team.TeamRed) AddBattleUpgrades();
             }
         }
 
@@ -127,6 +129,7 @@ namespace Game.Core
             hpFill.parent.gameObject.SetActive(false);
             SetAllCollidersStatus(false);
             GetComponent<Animator>().SetTrigger("Die");
+            SoundManager.instance.PlaySound(dieSound);
             isDead = true;
         }
 
@@ -144,7 +147,9 @@ namespace Game.Core
             if(moneyValue > 0)
             {
                 CastleFightData.instance.AddMoney(moneyValue);
+                SoundManager.instance.PlaySound(Sound.AddMoney);
             }
+            CastleFightData.instance.CollectBounty();
         }
 
         private void CheckToAddPlayerXP()
@@ -206,8 +211,17 @@ namespace Game.Core
         {
             return maxHealthPoints;
         }
+
+        private void AddBattleUpgrades()
+        {
+            BattleUpgrades upgrades = BattleUpgrades.instance;
+            Attacker attackerScript = GetComponent<Attacker>();
+
+            attackerScript.AddToBaseDamage(upgrades.damageBoost);
+            attackerScript.IncreaseCriticalChance(upgrades.criticalChanceBoost);
+            attackerScript.IncreaseCriticalDamageMultiplier(upgrades.criticalDamageBoost);
+            AddMaxHealth(upgrades.healthBoost);
+            GetComponent<Mover>().IncreaseMoveSpeed(upgrades.moveSpeedBoost);
+        }
     }
-
-   
-
 }

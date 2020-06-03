@@ -32,7 +32,7 @@ public class GlobalUpgrades : MonoBehaviour
 
     public int GetLevelOnIndex(int index)
     {
-        return globalUpgradesList[index].GetLevel();
+        return globalUpgradesList[index].GetCurrentLevel();
     }
 
     public string GetDescritionOnIndex(int index)
@@ -54,7 +54,7 @@ public class GlobalUpgrades : MonoBehaviour
     {
         if (MainData.instance.totalStars > 0)
         {
-            if(globalUpgradesList[indexToUpgrade].GetLevel() < globalUpgradesList[indexToUpgrade].GetMaxLevel())
+            if(globalUpgradesList[indexToUpgrade].GetCurrentLevel() < globalUpgradesList[indexToUpgrade].GetMaxLevel())
             {
                 bool success = globalUpgradesList[indexToUpgrade].UpgradeLevel();
                 if (success)
@@ -75,10 +75,36 @@ public class GlobalUpgrades : MonoBehaviour
         int starsToReclaim = 0;
         for(int i = 0; i<globalUpgradesList.Length; i++)
         {
-            starsToReclaim += globalUpgradesList[i].GetLevel();
+            starsToReclaim += globalUpgradesList[i].GetCurrentLevel();
             globalUpgradesList[i].SetUpgradeLevel(0);
         }
         MainData.instance.totalStars += starsToReclaim;
         CastleFightGui.instance.SetStarsText();
+    }
+
+    public int[] GetSaveArrayUpgrades()
+    {
+        int[] data = new int[globalUpgradesList.Length];
+        for(int i=0; i< globalUpgradesList.Length; i++)
+        {
+            data[i] = globalUpgradesList[i].GetCurrentLevel();
+        }
+
+        return data;
+    }
+
+    public void LoadGlobalUpgrades(int[] upgradesList)
+    {
+        if(upgradesList == null)
+        {
+            Debug.LogError("Global Upgrades List == null");
+            return;
+        }
+        int[] data = upgradesList;
+        for(int i=0; i < data.Length; i++)
+        {
+            globalUpgradesList[i].SetUpgradeLevel(data[i]);
+        }
+
     }
 }

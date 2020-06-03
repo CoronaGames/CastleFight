@@ -864,7 +864,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetMouseSelected: {fileID: 0}
   uiObject: {fileID: 0}
-  isSelectable: 1
+  isSelectable: 0
   waitForClicks: 0
 --- !u!1 &9147281908970227125
 GameObject:

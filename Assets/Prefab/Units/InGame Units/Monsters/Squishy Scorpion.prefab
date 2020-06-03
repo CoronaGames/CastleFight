@@ -502,6 +502,8 @@ MonoBehaviour:
   hpTextTimer: 0.5
   XPvalue: 0
   moneyValue: 3
+  unitName: 
+  dieSound: 0
 --- !u!114 &3325176892794068900
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -535,16 +537,18 @@ MonoBehaviour:
   hasTarget: 0
   numberOfTargets: 0
   actualTime: 0
+  attackSpeedInSeconds: 1
   collisionActive: 0
   canTargetBuildings: 1
   isCurrentlyAttacking: 0
+  weaponDamage: 4
+  criticalChance: 0
+  criticalDamageMultiplier: 1
   myAnimator: {fileID: 0}
   teamBelonging: {fileID: 0}
   mover: {fileID: 0}
   weaponRange: 4
-  weaponDamage: 4
-  attackSpeedInSeconds: 1
-  maxTargetDistanceToAttack: 0.4
+  maxTargetDistanceToAttack: 0.75
   currentTargetDistance: 0
 --- !u!114 &3665502030624472493
 MonoBehaviour:
@@ -561,6 +565,7 @@ MonoBehaviour:
   currentMoveSpeed: 5
   normalMoveSpeed: 5
   acceptableDistanceToDestination: 0.4
+  invertSpriteDirection: 0
   isMoving: 0
   spriteRenderer: {fileID: 8029252598566220750}
   destination: {fileID: 0}

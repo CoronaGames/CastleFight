@@ -2,17 +2,34 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 public class MainMenu : MonoBehaviour
 {
     [SerializeField] GameObject mainPanel;
     [SerializeField] GameObject[] panels;
+    [SerializeField] Button continueButton;
+    [SerializeField] bool isGameSaves = false;
     
 
     void Start()
     {
-        
+        CheckForGameSaves();
     }
 
+    public void CheckForGameSaves()
+    {
+        ProgressData progressData = SaveSystem.LoadGameData();
+        if(progressData != null)
+        {
+            isGameSaves = progressData.hasSaved;
+        }
+        else
+        {
+            isGameSaves = false;
+        }
+        continueButton.interactable = isGameSaves;
+    }
 
     public void ButtonClicked(int index)
     {
@@ -46,5 +63,8 @@ public class MainMenu : MonoBehaviour
         }
     }
 
-
+    public void ContinueGame()
+    {
+        SceneManager.LoadScene("Level Overview");
+    }
 }

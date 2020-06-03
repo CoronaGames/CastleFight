@@ -5,11 +5,26 @@ using UnityEngine.UI;
 
 public class UnitManagerPanel : MonoBehaviour
 {
+    public static UnitManagerPanel instance;
+
     [SerializeField] int[] maxUnitTypes; // Index 0 = Archer, Index 1 = Soldier, Index 2 = Wizard;
-    [SerializeField] Text[] unitNumbers;
+    [SerializeField] Text[] unitNumbersChosen;
+    [SerializeField] Text[] unitNumbersCurrent;
     [SerializeField] Button pauseSpawningButton;
     [SerializeField] Sprite spawningOnSprite;
     [SerializeField] Sprite spawningOffSprite;
+
+    private void Start()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
+    }
 
     private void OnEnable()
     {
@@ -33,12 +48,12 @@ public class UnitManagerPanel : MonoBehaviour
     private void UpdateText(int index)
     {
         if (maxUnitTypes[index] < 0) SetInfinite(index);
-        else unitNumbers[index].text = maxUnitTypes[index].ToString(); 
+        else unitNumbersChosen[index].text = maxUnitTypes[index].ToString(); 
     }
 
     private void SetInfinite(int index)
     {
-        unitNumbers[index].text = "-";
+        unitNumbersChosen[index].text = "-";
     }
 
     public int GetMaxUnitsOnIndex(int index)
@@ -99,5 +114,14 @@ public class UnitManagerPanel : MonoBehaviour
     {
         maxUnitTypes[index] = -1;
         UpdateText(index);
+    }
+
+    public void UpdateCurrentUnits()
+    {
+        int[] numberOfUnits = CastleFightData.instance.GetAmountOfUnitTypes();
+        for(int i=0; i<unitNumbersCurrent.Length; i++)
+        {
+            unitNumbersCurrent[i].text = numberOfUnits[i].ToString();
+        }
     }
 }

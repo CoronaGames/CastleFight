@@ -30,6 +30,7 @@ public class SettingMenu : MonoBehaviour
         float value = soundFxSlider.value;
         Mathf.Clamp(value, 0f, 1f);
         PlayerPrefs.SetFloat("soundFxVolume", value);
+        SoundManager.instance.SetSoundFxVolume();
     }
 
     public void SetMusicVolume()
@@ -37,5 +38,6 @@ public class SettingMenu : MonoBehaviour
         float value = musicSlider.value;
         Mathf.Clamp(value, 0f, 1f);
         PlayerPrefs.SetFloat("musicVolume", value);
+        SoundManager.instance.SetMusicVolume();
     }
 }

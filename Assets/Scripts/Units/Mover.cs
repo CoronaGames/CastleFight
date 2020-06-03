@@ -8,6 +8,7 @@ public class Mover : MonoBehaviour
     [SerializeField] float currentMoveSpeed = .2f;
     [SerializeField] float normalMoveSpeed = .2f;
     [SerializeField] float acceptableDistanceToDestination = .4f;
+    [SerializeField] bool invertSpriteDirection = false;
     public bool isMoving = false;
 
     Health health;
@@ -37,16 +38,28 @@ public class Mover : MonoBehaviour
             if(Mathf.Sign(destination.transform.position.x - transform.position.x) > 0)
             {
                 //transform.localScale = new Vector2(-0.6f, -0.6f);
-                spriteRenderer.flipX = true;
+                if (invertSpriteDirection)
+                {
+                    spriteRenderer.flipX = false;
+                }
+                else
+                {
+                    spriteRenderer.flipX = true;
+                } 
             }
             else
             {
                 //transform.localScale = new Vector2(0.6f, 0.6f);
-                spriteRenderer.flipX = false;
-
+                if (invertSpriteDirection)
+                {
+                    spriteRenderer.flipX = true;
+                }
+                else
+                {
+                    spriteRenderer.flipX = false;
+                }
             }
         }
-
     }
 
     public bool IsMoving()

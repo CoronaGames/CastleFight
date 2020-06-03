@@ -46,4 +46,25 @@ public static class SaveSystem
             return null;
         }
     }
+
+    public static void ResetGameData()
+    {
+        BinaryFormatter formatter = new BinaryFormatter();
+        string path = Application.persistentDataPath + "/cfData.sav";
+        FileStream stream = new FileStream(path, FileMode.Create);
+
+        ProgressData data = new ProgressData();
+
+        try
+        {
+            formatter.Serialize(stream, data);
+        }
+        catch (FileLoadException e)
+        {
+            Debug.LogError("File load error!");
+        }
+
+        stream.Close();
+
+    }
 }

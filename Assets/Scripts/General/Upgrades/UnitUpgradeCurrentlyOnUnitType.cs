@@ -35,4 +35,9 @@ public class UnitUpgradeCurrentlyOnUnitType : MonoBehaviour
         upgradesActive[unitUpgradeIndex] = allUpgradesIndex;
 
     }
+
+    public void SetUnitUpgrades(int[] upgrades)
+    {
+        upgradesActive = upgrades;
+    }
 }

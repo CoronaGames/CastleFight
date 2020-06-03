@@ -317,10 +317,11 @@ MonoBehaviour:
   partilceSystem: {fileID: 8380519415330587130}
   levelIndex: 0
   startMoney: 0
+  maxUnits: 10
   starSprites:
   - {fileID: 21300000, guid: c1f7e10e44b41bc47a9f3f2dc2f57bd9, type: 3}
-  - {fileID: 21300000, guid: 9759cfec38c64ec4ebfb5d2f554f4e97, type: 3}
-  - {fileID: 21300000, guid: 157dfc87a7409aa41ab862383defe9e2, type: 3}
+  - {fileID: 21300000, guid: 0e97ce424a997fb4380f73cd20b41126, type: 3}
+  - {fileID: 21300000, guid: 0e97ce424a997fb4380f73cd20b41126, type: 3}
   - {fileID: 21300000, guid: 0e97ce424a997fb4380f73cd20b41126, type: 3}
   starRenderer: {fileID: 4326359233334470343}
   buttonSprites:

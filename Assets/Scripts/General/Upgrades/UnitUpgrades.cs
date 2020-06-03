@@ -9,6 +9,7 @@ public class UnitUpgrades : MonoBehaviour
     
     [SerializeField] UnitUpgrade[] allUpgrades; // An array of all unit upgrades in the game;
     [SerializeField] UnitUpgrade[] availableUpgrades;
+    [SerializeField] int[] storeInventory; // Each number references index in "allUpgrades" list.
     // Showcased in "unit upgrades" UI panel, also the players currently available upgrades; 
     [SerializeField] UnitUpgradeCurrentlyOnUnitType[] unitsArray;
 
@@ -121,6 +122,87 @@ public class UnitUpgrades : MonoBehaviour
             return false;
         }
         return true;
+    }
+
+    public int[] GetSaveArrayInventory() // Used for saving inventory data
+    {
+        int[] saveArray = new int[unitsArray.Length];
+        for(int i=0; i< saveArray.Length; i++)
+        {
+            
+            for(int j=0; i< allUpgrades.Length; j++)    // j = allupgradesIndex;
+            {
+                if(availableUpgrades[i] == allUpgrades[j])
+                {
+                    saveArray[i] = j;
+                    break;
+                }
+            }
+        }
+        return saveArray;
+    }
+
+    public int[,] GetSaveArrayUnitUpgrades() // Used for saving unit upgrade data 
+    {
+        int[,] saveArray = new int[unitsArray.Length, 3];
+        for(int i=0; i<unitsArray.Length; i++)
+        {
+            for(int j=0; j<3; j++)
+            {
+                saveArray[i, j] = unitsArray[i].GetUnitUpgrades()[j];
+            }
+        }
+
+        return saveArray;
+    } 
+
+    public void SetInventory(int[] inventoryData)
+    {
+        if (inventoryData == null)
+        {
+            Debug.LogError("InventoryData equals null");
+            return;
+        }
+        int[] inventory = inventoryData;
+        for(int i=0; i< inventory.Length; i++)
+        {
+            availableUpgrades[i] = allUpgrades[inventory[i]];
+        }
+    }
+
+    public void SetUnitUpgrades(int[,] upgradeData)
+    {
+        if (upgradeData == null)
+        {
+            Debug.LogError("UpgradeData equals null");
+            return;
+        }
+
+        int[,] data = upgradeData;
+        int uBound0 = data.GetUpperBound(0);
+        int uBound1 = data.GetUpperBound(1);
+
+        int[] current;
+
+        for (int i=0; i<=uBound0; i++)
+        {
+            current = new int[3];
+            for(int j = 0; j <= uBound1; j++)
+            {
+                current[j] = data[i, j]; 
+            }
+            unitsArray[i].SetUnitUpgrades(current);
+        }
+    }
+
+    public int[] GetStoreInventory()
+    {
+        return storeInventory;
+    }
+
+    public void SetStoreInventory(int[] storeInventory)
+    {
+        this.storeInventory = storeInventory;
     }
 
 }

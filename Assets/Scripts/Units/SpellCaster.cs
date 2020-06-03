@@ -9,7 +9,6 @@ public class SpellCaster : Attacker
     [SerializeField] Ability currentAbility;
 
     [SerializeField] float weaponRange = 2f;
-    [SerializeField] float attackSpeedInSeconds = 0.8f;
     
 
     void Start()

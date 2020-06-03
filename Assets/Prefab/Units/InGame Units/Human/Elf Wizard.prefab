@@ -223,7 +223,7 @@ GameObject:
   - component: {fileID: -1246376117776927594}
   - component: {fileID: 4581631403283577031}
   m_Layer: 0
-  m_Name: Elf Wizard
+  m_Name: Sorceress
   m_TagString: NPC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -286,7 +286,7 @@ SpriteRenderer:
   m_SortingLayerID: -912099329
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d77b90e73bca3eb428c2bc9aa7a09901, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0eece74909744434398871079fa656ae, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -334,8 +334,8 @@ BoxCollider2D:
   m_Offset: {x: -0.17949867, y: -0.10257149}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.6578091, y: 0.5102987}
-    oldSize: {x: 3.97, y: 4.38}
+    pivot: {x: 0.5897882, y: 0.4174021}
+    oldSize: {x: 3.41, y: 4.1}
     newSize: {x: 2.7, y: 3.33}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -451,6 +451,7 @@ MonoBehaviour:
   currentMoveSpeed: 3.5
   normalMoveSpeed: 3.5
   acceptableDistanceToDestination: 0.4
+  invertSpriteDirection: 0
   isMoving: 0
   spriteRenderer: {fileID: 0}
   destination: {fileID: 0}
@@ -475,6 +476,7 @@ MonoBehaviour:
   XPvalue: 0
   moneyValue: 8
   unitName: Wizard
+  dieSound: 0
 --- !u!114 &3163832732896986148
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -539,6 +541,7 @@ MonoBehaviour:
   mover: {fileID: 0}
   weaponRange: 12
   aoeDamage: 4
+  attackSound: 0
   projectilePrefab: {fileID: 4263327631448522296, guid: c4f77b9bcadfa0d4e8e266ed80fefbb0,
     type: 3}
   projectileInstance: {fileID: 0}
@@ -569,6 +572,7 @@ MonoBehaviour:
   attackSpeedInSeconds: 1
   waitToCastAfterspawnInSeconds: 2.5
   targetFriendlyUnits: 0
+  abilityHandler: {fileID: 0}
   myAnimator: {fileID: 0}
   teamBelonging: {fileID: 0}
 --- !u!1 &7332586095390831158

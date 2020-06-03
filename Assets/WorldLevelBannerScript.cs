@@ -64,6 +64,7 @@ public class WorldLevelBannerScript : MonoBehaviour
     public void ButtonClicked()
     {
         CastleFightGui.instance.ShowSelectedLevel(this);
+        SetStars();
     }
 
     public string GetLevelName()

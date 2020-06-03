@@ -44,6 +44,7 @@ public class NewGamePanel : MonoBehaviour
 
     public void StartGame()
     {
+        SaveSystem.ResetGameData();
         string session = sessionInputField.text;
         PlayerPrefs.SetString("currentSession", session);
         SceneManager.LoadScene("Level Overview");

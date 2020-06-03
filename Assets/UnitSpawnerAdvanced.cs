@@ -85,6 +85,7 @@ public class UnitSpawnerAdvanced : MonoBehaviour
 
     private void WaitBetweenWavesTimer()
     {
+        if (waveIndex >= waitForNextWaveDelay.Length) return;
         if(currentWaitForNextWave < waitForNextWaveDelay[waveIndex])
         {
             currentWaitForNextWave += Time.deltaTime;

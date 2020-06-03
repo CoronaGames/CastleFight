@@ -21,6 +21,8 @@ public class AbilityCaster : MonoBehaviour
     [SerializeField] float attackSpeedInSeconds = 1f;
     [SerializeField] float waitToCastAfterspawnInSeconds = 0f;
     [SerializeField] bool targetFriendlyUnits = false;
+    [SerializeField] AbilityHandler abilityHandler;
+    
 
     public Animator myAnimator;
     public TeamData teamBelonging;
@@ -36,6 +38,10 @@ public class AbilityCaster : MonoBehaviour
         capsuleCollider = GetComponent<CapsuleCollider2D>();
         actualTime = waitToCastAfterspawnInSeconds;
         targetFriendlyUnits = currentAbility.IsTargetFriendlyUnits();
+        if (abilityHandler != null && abilityHandler.GetAbility() == null)
+        {
+            abilityHandler.SetAbility(currentAbility);
+        }
     }
 
     // Update is called once per frame
@@ -83,7 +89,10 @@ public class AbilityCaster : MonoBehaviour
 
     public virtual bool Attack()
     {
-        if (CheckForMissing()) return false;
+        if (isCurrentlyAttacking)
+        {
+            return true;
+        }
         if (actualTime <= 0 && !CheckForMissing() && !GetComponent<Health>().IsDead())
         {
             if (currentAbility.GetAbilityFlag() == Flag.Heal)
@@ -286,8 +295,12 @@ public class AbilityCaster : MonoBehaviour
 
     private void CastSpell()
     {
+        if (currentAbility.IsAoe() && abilityHandler != null)
+        {
+            abilityHandler.ActivateAbility();
+        }
 
-        if (targets.Count > 0)
+        else if (targets.Count > 0)
         {
             if (target != null)
             {
@@ -301,10 +314,10 @@ public class AbilityCaster : MonoBehaviour
                     }
                 }
 
-                myAnimator.ResetTrigger("CastAbility");
-                isCurrentlyAttacking = false;
             }
-
         }
+
+        isCurrentlyAttacking = false;
+        myAnimator.ResetTrigger("CastAbility");
     }
 }

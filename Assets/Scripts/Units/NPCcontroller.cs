@@ -72,8 +72,11 @@ namespace Game.Movement
                 if (currentWaypointIndex >= wayPoints.Length)
                 {
                     mover.MoveTo(wayPoints[wayPoints.Length - 1].gameObject);
-                    switchToLooping = true;
-                    currentWaypointIndex = 0;
+                    if(loopingWaypoints.Length > 0)
+                    {
+                        switchToLooping = true;
+                        currentWaypointIndex = 0;
+                    }
                     return;
                 }
 

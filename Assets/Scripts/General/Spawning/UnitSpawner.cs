@@ -28,6 +28,7 @@ public class UnitSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!CastleFightData.instance.gameInitiated) return;
         if (spawningActivated && !isCurrentlySpawning)
         {
             Timer();

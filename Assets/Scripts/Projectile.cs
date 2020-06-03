@@ -23,6 +23,7 @@ namespace Game.Combat
 
         [SerializeField] Health target;
         [SerializeField] Health shooter;
+        [SerializeField] Ability ability;
 
 
         // Make abilities for projectiles TODO
@@ -106,6 +107,7 @@ namespace Game.Combat
                 if (!hasAOE && other.gameObject == target.gameObject)
                 {
                     target.TakeDamage(projectileDamage);
+                    if (ability != null) target.GetComponent<AbilitiesUsedOnTarget>().AddAbilityUsedOnTarget(ability);
                     if (target.GetComponent<Attacker>() && shooter != null)
                     {
                         target.GetComponent<Attacker>().CheckForAggro(shooter);

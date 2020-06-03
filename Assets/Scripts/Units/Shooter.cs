@@ -10,6 +10,7 @@ namespace Game.Combat
     {
         [SerializeField] float weaponRange = 2f;
         [SerializeField] float aoeDamage = 5f;
+        [SerializeField] Sound attackSound;
 
         public GameObject projectilePrefab;
         public GameObject projectileInstance;
@@ -67,6 +68,7 @@ namespace Game.Combat
                     {
                         projectileInstance.GetComponent<Projectile>().SetProjectileDamage(weaponDamage, aoeDamage);
                     }
+                    SoundManager.instance.PlaySound(attackSound);
                     
                     isCurrentlyAttacking = false;
                     myAnimator.ResetTrigger("Shoot");

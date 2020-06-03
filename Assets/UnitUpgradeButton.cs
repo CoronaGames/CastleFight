@@ -18,18 +18,6 @@ public class UnitUpgradeButton : MonoBehaviour
         //UpdateText();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    public void OnClick()
-    {
-
-
-    }
-
     public void SetTitleAndDescription(string title, string description)
     {
         buttonTitle = title;

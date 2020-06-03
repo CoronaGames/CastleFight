@@ -8,22 +8,40 @@ public class InGameTrigger : MonoBehaviour
     TeamData teamData;
     [SerializeField] UnitSpawner unitSpawner;
     [SerializeField] Trap enemyTrap;
+    [Tooltip("Check if used to trigger unit spawners.")]
     [SerializeField] bool spawningTrigger;
+    [Tooltip("Check if used to trigger traps.")]
     [SerializeField] bool trapTrigger;
     [SerializeField] bool triggerOnce = true;
     [SerializeField] float delayBetweenTriggers = 0f;  // If trigger once is false
     [SerializeField] float currentDelayTime = 0f;
     [SerializeField] bool triggered = false;
+    [Tooltip("Time until trigger is active.")]
+    [SerializeField] float waitToActivateTriggerInSeconds = 0f; // First trigger
 
     // Start is called before the first frame update
     void Start()
     {
         boxCollider = GetComponent<BoxCollider2D>();
         teamData = GetComponent<TeamData>();
+        if(waitToActivateTriggerInSeconds > 0f)
+        {
+            boxCollider.enabled = false;
+        }
     }
 
     private void Update()
     {
+        if(waitToActivateTriggerInSeconds > 0f && CastleFightData.instance.gameInitiated)
+        {
+            waitToActivateTriggerInSeconds -= Time.deltaTime;
+            if(waitToActivateTriggerInSeconds <= 0f)
+            {
+                boxCollider.enabled = true;
+            }
+            return;
+        }
+
         if (!triggerOnce && triggered)
         {
             if(currentDelayTime >= delayBetweenTriggers)

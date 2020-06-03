@@ -49,5 +49,5 @@ MonoBehaviour:
   description: Empty Slot
   equippable: 0
   worksOnUnitTypes: []
-  upgradeType: 6
+  upgradeType: 7
   upgradeValue: 0

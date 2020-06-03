@@ -9,11 +9,6 @@ public class GlobalUpgrade : MonoBehaviour
     [SerializeField] string upgradeName;
     [SerializeField] string upgradeDescription;
     [SerializeField] bool convertDescriptionToPercentage = false;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
 
     public float GetIndex(int index)
@@ -38,7 +33,7 @@ public class GlobalUpgrade : MonoBehaviour
         upgradeLevel = level;
     }
 
-    public int GetLevel()
+    public int GetCurrentLevel()
     {
         return upgradeLevel;
     }

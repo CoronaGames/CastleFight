@@ -28,6 +28,7 @@ public class CastleFightData : MonoBehaviour
 
     [Header("CurrentLevelData:")]
     [SerializeField] int currentLevelIndex;
+    [SerializeField] int collectedBounty = 0;
     [SerializeField] float[] highScoreValues;
     [SerializeField] float timeInitiated = 0f;
 
@@ -163,7 +164,8 @@ public class CastleFightData : MonoBehaviour
 
     public void GameLost()
     {
-        CastleFightGui.instance.GameLost();
+        CastleFightGui.instance.GameLost(collectedBounty, MainData.instance.totalBounty);
+        AddBountyToGameData();
         UpdateMainData();
         gameInitiated = false;
     }
@@ -171,10 +173,22 @@ public class CastleFightData : MonoBehaviour
     public void GameWon()
     {
         UpdateMainData();
-        CastleFightGui.instance.GameWon(timeInitiated, MainData.instance.levelScore[currentLevelIndex]);
+        MainData.instance.AddScore(currentLevelIndex, CalculateScore());
+        CastleFightGui.instance.GameWon(timeInitiated, MainData.instance.levelScore[currentLevelIndex], collectedBounty, MainData.instance.totalBounty);
+        AddBountyToGameData();
         gameInitiated = false;
     }
 
+    public void AddBountyToGameData()
+    {
+        MainData.instance.AddBounty(collectedBounty);
+        collectedBounty = 0;
+    }
+
+    public void CollectBounty()
+    {
+        collectedBounty++;
+    }
 
     public void StartGame()
     {
@@ -225,18 +239,21 @@ public class CastleFightData : MonoBehaviour
         timeInitiated = 0f;
         SetMoney(startMoney);
         pauseSpawningUnits = false;
+        SetUnitsText();
+        BattleUpgrades.instance.ResetUpgrades();
     }
 
     public void UpdateMainData()
     {
-        MainData.instance.levelScore[currentLevelIndex] = CalculateScore();
         MainData.instance.levelTimer[currentLevelIndex] = timeInitiated;
         MainData.instance.UpdateTotalStars();
     }
 
     private int CalculateScore()
     {
+
         int points = 3;
+        /*
         if (highScoreValues == null) return 0;
         for(int i=0; i< highScoreValues.Length; i++)
         {
@@ -251,6 +268,8 @@ public class CastleFightData : MonoBehaviour
             }
         }
         return 1;
+        */
+        return points;
     }
 
     public void SetCurrentLevel(WorldLevelBannerScript level)
@@ -274,6 +293,18 @@ public class CastleFightData : MonoBehaviour
     public int GetMaxUnits()
     {
         return maxUnits;
+    }
+
+    public void IncrementMaxUnits()
+    {
+        maxUnits++;
+        SetUnitsText();
+    }
+
+    public void IncrementMaxUnits(int amount)
+    {
+        maxUnits += amount;
+        SetUnitsText();
     }
 
     public void AddSpawner()
@@ -384,6 +415,12 @@ public class CastleFightData : MonoBehaviour
             if (isRemoving) amountOfUnitTypes[2]--;
             else amountOfUnitTypes[2]++;
         }
+        UnitManagerPanel.instance.UpdateCurrentUnits();
+    }
+
+    public int[] GetAmountOfUnitTypes()
+    {
+        return amountOfUnitTypes;
     }
 
     public int GetAmountOfUnit(int unitTypeIndex)
@@ -399,5 +436,10 @@ public class CastleFightData : MonoBehaviour
     public void SetPauseSpawningUnits(bool value)
     {
         pauseSpawningUnits = value;
+    }
+
+    public LinkedList<Health> GetActiveUnitsPlayer()
+    {
+        return activeUnitsPlayer;
     }
 }

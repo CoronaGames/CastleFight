@@ -845,6 +845,8 @@ MonoBehaviour:
   numberOfUnitsToSpawnPerCountDown: 1
   spawnTimeInSeconds: 5
   spawningActivated: 1
+  unitManager: {fileID: 0}
+  unitIndexForUnitManager: 0
 --- !u!114 &1441105178847028305
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -881,6 +883,7 @@ MonoBehaviour:
   XPvalue: 0
   moneyValue: 0
   unitName: 
+  dieSound: 0
 --- !u!114 &3891420869855523434
 MonoBehaviour:
   m_ObjectHideFlags: 0

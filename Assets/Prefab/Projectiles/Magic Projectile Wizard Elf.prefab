@@ -235,7 +235,7 @@ MonoBehaviour:
   groundHit: 0
   setRotation: 0
   aoeDamage: 0
-  projectileDamage: 20
+  projectileDamage: 30
   projectileSpeed: 5
   shootSound: 
   targetHitsound: 
@@ -243,6 +243,8 @@ MonoBehaviour:
   acceptableDistanceToDestination: 0.15
   target: {fileID: 0}
   shooter: {fileID: 0}
+  ability: {fileID: 0}
+  projectileFlag: 0
   teamData: {fileID: 0}
 --- !u!58 &1149774141678223615
 CircleCollider2D:
