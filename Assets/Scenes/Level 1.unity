@@ -54562,6 +54562,26 @@ PrefabInstance:
       propertyPath: playerMoney
       value: 175
       objectReference: {fileID: 0}
+    - target: {fileID: 3167647695639239422, guid: 6caae942623da084ba24485ed0453ddc,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3167647695639239422, guid: 6caae942623da084ba24485ed0453ddc,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3167647695639239422, guid: 6caae942623da084ba24485ed0453ddc,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 13.52
+      objectReference: {fileID: 0}
+    - target: {fileID: 3167647695639239422, guid: 6caae942623da084ba24485ed0453ddc,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0
+      objectReference: {fileID: 0}
     - target: {fileID: 3879263505318652872, guid: 6caae942623da084ba24485ed0453ddc,
         type: 3}
       propertyPath: m_IsActive

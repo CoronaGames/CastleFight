@@ -12,6 +12,7 @@ public class BountyStore : MonoBehaviour
     [SerializeField] int noOfPages = 0;
     [SerializeField] int currentPage = 0;
     [SerializeField] Text currentPageText;
+    [SerializeField] Text statusText;
     UnitUpgradeCurrentlyOnUnitType unitSelected;
 
     void Start()
@@ -21,6 +22,8 @@ public class BountyStore : MonoBehaviour
 
     private void OnEnable()
     {
+        UnitUpgrades.instance.SortStoreInvenotryList();
+        UnitUpgrades.instance.SortAvailableUpgradesList();
         CalculateStorePages();
         RefreshPanel();
     }
@@ -56,7 +59,7 @@ public class BountyStore : MonoBehaviour
             if (unitSelected.GetUnitUpgrades()[i] == 0)
             {
 
-                unitSelected.GetUnitUpgrades()[i] = UnitUpgrades.instance.GetAvailableUpgradesList()[index].GetUpgradeId();
+                unitSelected.GetUnitUpgrades()[i] = UnitUpgrades.instance.GetAvailableUpgradesList()[index];
                 success = true;
                 break;
             }
@@ -74,11 +77,12 @@ public class BountyStore : MonoBehaviour
 
     public void SetUpInventory()
     {
-        UnitUpgrade[] upgradeList = UnitUpgrades.instance.GetAvailableUpgradesList();
+        UnitUpgrade[] allUpgrades = UnitUpgrades.instance.GetAllUpgradesList();
+        int[] upgradeList = UnitUpgrades.instance.GetAvailableUpgradesList();
         for (int i = 0; i < inventory.Length; i++)
         {
-            inventory[i].image.sprite = upgradeList[i].GetSprite();
-            if (upgradeList[i].GetUpgradeType() == UpgradeType.None)
+            inventory[i].image.sprite = allUpgrades[upgradeList[i]].GetSprite();
+            if (allUpgrades[upgradeList[i]].GetUpgradeType() == UpgradeType.None)
             {
                 inventory[i].GetComponent<UnitUpgradeButton>().SetTitleAndDescription("", "");
                 inventory[i].interactable = false;
@@ -89,8 +93,9 @@ public class BountyStore : MonoBehaviour
                 {
                     inventory[i].GetComponent<UnitUpgradeButton>().SetTitleAndDescription
                         (
-                            upgradeList[i].GetTitle(),
-                            upgradeList[i].GetDescription()
+                            allUpgrades[upgradeList[i]].GetTitle(),
+                            allUpgrades[upgradeList[i]].GetDescription() +
+                            "\n\nSell value:  <color=green>" + (allUpgrades[upgradeList[i]].GetUpgradeCost()/2) + "</color> bounty."
                         );
                 }
                 inventory[i].interactable = true;
@@ -123,7 +128,9 @@ public class BountyStore : MonoBehaviour
                     store[i].GetComponent<UnitUpgradeButton>().SetTitleAndDescription
                         (
                             upgradeList[storeInventory[i + startIndex]].GetTitle(),
-                            upgradeList[storeInventory[i + startIndex]].GetDescription()
+                            upgradeList[storeInventory[i + startIndex]].GetDescription() + 
+                            "\n\nBuy Cost:  <color=green>" + upgradeList[storeInventory[i + startIndex]].GetUpgradeCost() + "</color> bounty."
+
                         );
                 }
                 store[i].interactable = true;
@@ -155,5 +162,33 @@ public class BountyStore : MonoBehaviour
     private void SetCurrentPageText()
     {
         currentPageText.text = (currentPage + 1) + "/" + (noOfPages + 1);
+    }
+
+    public void BuyItem(int index)
+    {
+        int indexToAdd = UnitUpgrades.instance.GetStoreInventory()[index];
+        if (UnitUpgrades.instance.GetAllUpgradesList()[indexToAdd].GetUpgradeCost() <= MainData.instance.totalBounty)
+        {
+            MainData.instance.totalBounty -= UnitUpgrades.instance.GetAllUpgradesList()[indexToAdd].GetUpgradeCost();
+            UnitUpgrades.instance.AddToAvailableUpgrades(indexToAdd);
+            UnitUpgrades.instance.GetStoreInventory()[index] = 0; // removes item from store
+            RefreshPanel();
+            statusText.text = "<color=green>Successfully bought item</color>";
+        }
+        else
+        {
+            statusText.text = "<color=red>Cant afford item</color>";
+        }
+   
+    }
+
+    public void SellItem(int index)
+    {
+        int sellIndex = UnitUpgrades.instance.GetAvailableUpgradesList()[index];
+        UnitUpgrades.instance.AddToStore(sellIndex);
+        UnitUpgrades.instance.RemoveFromAvailableUpgrades(index);
+        MainData.instance.totalBounty += UnitUpgrades.instance.GetAllUpgradesList()[sellIndex].GetUpgradeCost() / 2;
+        RefreshPanel();
+        statusText.text = "<color=green>Successfully sold item</color>";
     }
 }

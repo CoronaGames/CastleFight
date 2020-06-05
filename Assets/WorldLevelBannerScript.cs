@@ -18,6 +18,7 @@ public class WorldLevelBannerScript : MonoBehaviour
     [SerializeField] SpriteRenderer starRenderer;
     [SerializeField] Sprite[] buttonSprites; // Index 0: PointerExited, Index 1: PointerEntered;
     [SerializeField] Image buttonImage;
+    [SerializeField] starFxController starsController;
 
     [Header("LevelSelectedPanelData")]
     [SerializeField] string mapName;
@@ -35,6 +36,7 @@ public class WorldLevelBannerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        starsController = GetComponentInChildren<starFxController>();
         SetStars();
     }
 
@@ -90,10 +92,13 @@ public class WorldLevelBannerScript : MonoBehaviour
     public void SetStars()
     {
         int starSpriteIndex = MainData.instance.levelScore[levelIndex];
+        /*
         if (starSpriteIndex <= starSprites.Length)
         {
             starRenderer.sprite = starSprites[starSpriteIndex];
         }
+        */
+        starsController.ea = starSpriteIndex;
     }
 
     public float[] GetScoreTimer()

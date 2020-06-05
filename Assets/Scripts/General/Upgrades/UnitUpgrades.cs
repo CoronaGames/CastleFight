@@ -8,7 +8,8 @@ public class UnitUpgrades : MonoBehaviour
     public static UnitUpgrades instance;
     
     [SerializeField] UnitUpgrade[] allUpgrades; // An array of all unit upgrades in the game;
-    [SerializeField] UnitUpgrade[] availableUpgrades;
+    //[SerializeField] UnitUpgrade[] availableUpgrades;
+    [SerializeField] int[] availableUpgrades;
     [SerializeField] int[] storeInventory; // Each number references index in "allUpgrades" list.
     // Showcased in "unit upgrades" UI panel, also the players currently available upgrades; 
     [SerializeField] UnitUpgradeCurrentlyOnUnitType[] unitsArray;
@@ -36,18 +37,39 @@ public class UnitUpgrades : MonoBehaviour
         return unitsArray;
     }
 
+    /*
     public UnitUpgrade[] GetAvailableUpgradesList()
+    {
+        return availableUpgrades;
+    }
+    */
+
+    public int[] GetAvailableUpgradesList()
     {
         return availableUpgrades;
     }
 
     public void AddToAvailableUpgrades(int indexToAdd) // Index reference from "allUpgrades"
     {
+
         for(int i=0; i < availableUpgrades.Length; i++)
         {
-            if(availableUpgrades[i].GetUpgradeType() == UpgradeType.None)
+            if(allUpgrades[availableUpgrades[i]].GetUpgradeType() == UpgradeType.None)
             {
-                availableUpgrades[i] = allUpgrades[indexToAdd];
+                availableUpgrades[i] = indexToAdd;
+                return;
+            }
+        }
+    }
+
+    public void AddToStore(int indexToAdd) // Index reference from "allUpgrades"
+    {
+
+        for (int i = 0; i < storeInventory.Length; i++)
+        {
+            if (allUpgrades[storeInventory[i]].GetUpgradeType() == UpgradeType.None)
+            {
+                storeInventory[i] = indexToAdd;
                 return;
             }
         }
@@ -55,7 +77,8 @@ public class UnitUpgrades : MonoBehaviour
 
     public void RemoveFromAvailableUpgrades(int indexToRemove) // Index reference from "availableUpgrades"
     {
-          availableUpgrades[indexToRemove] = allUpgrades[0];
+          availableUpgrades[indexToRemove] = 0;
+        SortAvailableUpgradesList();
     }
 
     public void AddUpgradesToUnit(Health unit)  // Called when units spawns ingame;
@@ -132,7 +155,7 @@ public class UnitUpgrades : MonoBehaviour
             
             for(int j=0; i< allUpgrades.Length; j++)    // j = allupgradesIndex;
             {
-                if(availableUpgrades[i] == allUpgrades[j])
+                if(availableUpgrades[i] == j)   // Potesneill feil?
                 {
                     saveArray[i] = j;
                     break;
@@ -166,7 +189,7 @@ public class UnitUpgrades : MonoBehaviour
         int[] inventory = inventoryData;
         for(int i=0; i< inventory.Length; i++)
         {
-            availableUpgrades[i] = allUpgrades[inventory[i]];
+            availableUpgrades[i] = inventory[i];
         }
     }
 
@@ -205,4 +228,33 @@ public class UnitUpgrades : MonoBehaviour
         this.storeInventory = storeInventory;
     }
 
+    public void SortAvailableUpgradesList()
+    {
+        int index = 0;
+        int[] bufferList = new int[availableUpgrades.Length];
+        for(int i=0; i<availableUpgrades.Length; i++)
+        {
+            if(availableUpgrades[i] != 0)
+            {
+                bufferList[index] = availableUpgrades[i];
+                index++;
+            }
+        }
+        availableUpgrades = bufferList;
+    }
+
+    public void SortStoreInvenotryList()
+    {
+        int index = 0;
+        int[] bufferList = new int[storeInventory.Length];
+        for (int i = 0; i < storeInventory.Length; i++)
+        {
+            if (storeInventory[i] != 0)
+            {
+                bufferList[index] = storeInventory[i];
+                index++;
+            }
+        }
+        storeInventory = bufferList;
+    }
 }

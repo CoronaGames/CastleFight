@@ -8,7 +8,7 @@ public class UnitUpgradeButton : MonoBehaviour
 {
     public Button button;
     [SerializeField] GeneralTooltip toolTip;
-
+    [SerializeField] bool staticTooltipPosition = false;
     [SerializeField] string buttonTitle;
     [SerializeField] string buttonDescription;
 
@@ -30,7 +30,8 @@ public class UnitUpgradeButton : MonoBehaviour
         if (buttonTitle == "") return;
         toolTip.gameObject.SetActive(true);
         UpdateToolTip();
-        toolTip.SetTooltipPosition(new Vector2(transform.position.x, transform.position.y));
+        if(!staticTooltipPosition) toolTip.SetTooltipPosition(new Vector2(transform.position.x, transform.position.y));
+
     }
 
     public void OnPointerExit(PointerEventData eventData)

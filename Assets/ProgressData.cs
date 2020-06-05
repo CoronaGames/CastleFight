@@ -21,6 +21,9 @@ public class ProgressData
     [Header("Global Upgrades")]
     public int[] globalUpgrades;
 
+    [Header("Store Inventory")]
+    public int[] storeInventory;
+
     public bool hasSaved;
 
     public ProgressData(MainData mainData)
@@ -37,6 +40,8 @@ public class ProgressData
 
         upgradesInventory = UnitUpgrades.instance.GetSaveArrayInventory();
         upgradeOnUnitType = UnitUpgrades.instance.GetSaveArrayUnitUpgrades();
+        storeInventory = UnitUpgrades.instance.GetStoreInventory();
+
 
         globalUpgrades = GlobalUpgrades.instance.GetSaveArrayUpgrades();
 
@@ -53,6 +58,7 @@ public class ProgressData
 
         upgradesInventory = new int[0];
         upgradeOnUnitType = new int[3,3]; // 3 unit types with 3 upgrades each
+        storeInventory = new int[0];
 
         globalUpgrades = new int[5];
     }

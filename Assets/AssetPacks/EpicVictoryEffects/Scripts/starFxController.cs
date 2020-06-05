@@ -17,8 +17,19 @@ public class starFxController : MonoBehaviour {
 		myStarFxController = this;
 	}
 
-	void Start () {
-		Reset ();
+	void Start ()
+    {
+        if (isEnd)
+        {
+            for(int i=0; i<starFX.Length; i++)
+            {
+                starFX[i].SetActive(true);
+            }
+        }
+        else
+        {
+            Reset();
+        }
 	}
 
 	void Update () {
@@ -29,7 +40,10 @@ public class starFxController : MonoBehaviour {
 					currentDelay = delay;
 					starFX [currentEa].SetActive (true);
 					currentEa++;
-				} else {
+                    MainData.instance.AddStar();
+
+                  
+                } else {
 					isEnd = true;
 					currentDelay = delay;
 					currentEa = 0;

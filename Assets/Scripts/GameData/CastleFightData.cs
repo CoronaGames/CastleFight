@@ -24,6 +24,7 @@ public class CastleFightData : MonoBehaviour
     [SerializeField] LinkedList<Health> activeUnitsPlayer;
     [SerializeField] LinkedList<Health> activeUnitsEnemy;   // Used for global spells etc;
     public int[] amountOfUnitTypes; // Index 0 = Archer, Index 1 = Soldier, Index 2 = Wizard;
+    [SerializeField] GameObject confetti;
     
 
     [Header("CurrentLevelData:")]
@@ -172,6 +173,7 @@ public class CastleFightData : MonoBehaviour
 
     public void GameWon()
     {
+        confetti.SetActive(true);
         UpdateMainData();
         MainData.instance.AddScore(currentLevelIndex, CalculateScore());
         CastleFightGui.instance.GameWon(timeInitiated, MainData.instance.levelScore[currentLevelIndex], collectedBounty, MainData.instance.totalBounty);

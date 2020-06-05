@@ -52,7 +52,7 @@ public class UnitUpgradesPanel : MonoBehaviour
             if(unitSelected.GetUnitUpgrades()[i] == 0)
             {
                
-                unitSelected.GetUnitUpgrades()[i] = UnitUpgrades.instance.GetAvailableUpgradesList()[index].GetUpgradeId();
+                unitSelected.GetUnitUpgrades()[i] = UnitUpgrades.instance.GetAvailableUpgradesList()[index];
                 success = true;
                 break;
             }
@@ -101,11 +101,12 @@ public class UnitUpgradesPanel : MonoBehaviour
 
     public void SetUpButtons()
     {
-        UnitUpgrade[] upgradeList = UnitUpgrades.instance.GetAvailableUpgradesList();
+        UnitUpgrade[] allUpgrades = UnitUpgrades.instance.GetAllUpgradesList();
+        int[] upgradeList = UnitUpgrades.instance.GetAvailableUpgradesList();
         for(int i=0; i<abilitiesAvailableList.Length; i++)
         {
-            abilitiesAvailableList[i].image.sprite = upgradeList[i].GetSprite();
-            if(upgradeList[i].GetUpgradeType() == UpgradeType.None)
+            abilitiesAvailableList[i].image.sprite = allUpgrades[upgradeList[i]].GetSprite();
+            if(allUpgrades[upgradeList[i]].GetUpgradeType() == UpgradeType.None)
             {
                 abilitiesAvailableList[i].GetComponent<UnitUpgradeButton>().SetTitleAndDescription("", "");
                 abilitiesAvailableList[i].interactable = false;
@@ -116,8 +117,8 @@ public class UnitUpgradesPanel : MonoBehaviour
                 {
                     abilitiesAvailableList[i].GetComponent<UnitUpgradeButton>().SetTitleAndDescription
                         (
-                            upgradeList[i].GetTitle(),
-                            upgradeList[i].GetDescription()
+                            allUpgrades[upgradeList[i]].GetTitle(),
+                            allUpgrades[upgradeList[i]].GetDescription()
                         );
                 }
                 abilitiesAvailableList[i].interactable = true;

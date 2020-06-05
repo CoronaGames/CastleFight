@@ -23,6 +23,9 @@ public class MainData : MonoBehaviour
     [Header("Used for main menu")]
     public bool hasSaved = false; // Used by main menu to determine if save file exists.
 
+    [Header("Store Inventory")]
+    public int[] storeInventory;
+
     [SerializeField] bool activateChanges = false; // Used to trigger changes in inspector in runtime.
 
     void Start()
@@ -77,6 +80,7 @@ public class MainData : MonoBehaviour
 
         upgradesInventory = progressData.upgradesInventory;
         upgradesOnUnitType = progressData.upgradeOnUnitType;
+        storeInventory = progressData.storeInventory;
 
         globalUpgrades = progressData.globalUpgrades;
 
@@ -91,6 +95,7 @@ public class MainData : MonoBehaviour
     {
         UnitUpgrades.instance.SetInventory(upgradesInventory);
         UnitUpgrades.instance.SetUnitUpgrades(upgradesOnUnitType);
+        UnitUpgrades.instance.SetStoreInventory(storeInventory);
     }
 
     private void SetGlobalUpgradesData()
@@ -101,7 +106,12 @@ public class MainData : MonoBehaviour
     public void AddScore(int level, int score)
     {
         levelScore[level] = score;
-        totalStars += score;
+
+    }
+
+    public void AddStar()
+    {
+        totalStars ++;
         CastleFightGui.instance.SetStarsText();
     }
 

@@ -13,10 +13,16 @@ public class UnitUpgrade : MonoBehaviour
     [SerializeField] string[] worksOnUnitTypes; // Determines if unit can use upgrade
     [SerializeField] UpgradeType upgradeType;
     [SerializeField] float upgradeValue; // variable to modify data with respect to upgradeType (HP, damage, move speed, etc...);
+    [SerializeField] int upgradeCost = 0; // Price to buy
 
     public UpgradeType GetUpgradeType()
     {
         return upgradeType;
+    }
+
+    public int GetUpgradeCost()
+    {
+        return upgradeCost;
     }
 
     public float GetUpgradeValue()
