@@ -5059,24 +5059,39 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3525530054402723896, guid: 6caae942623da084ba24485ed0453ddc,
         type: 3}
-      propertyPath: storeInventory.Array.data[0]
-      value: 1
+      propertyPath: allUpgrades.Array.size
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3525530054402723896, guid: 6caae942623da084ba24485ed0453ddc,
         type: 3}
-      propertyPath: storeInventory.Array.data[1]
-      value: 1
-      objectReference: {fileID: 0}
+      propertyPath: allUpgrades.Array.data[2]
+      value: 
+      objectReference: {fileID: 3779072956677180438, guid: d9fdf5fa7cb96a842b5e89ac1786334f,
+        type: 3}
     - target: {fileID: 3525530054402723896, guid: 6caae942623da084ba24485ed0453ddc,
         type: 3}
-      propertyPath: storeInventory.Array.data[3]
-      value: 2
-      objectReference: {fileID: 0}
+      propertyPath: allUpgrades.Array.data[3]
+      value: 
+      objectReference: {fileID: 3779072956677180438, guid: 5e63e0e731a35da4896b1dfdb702f46d,
+        type: 3}
     - target: {fileID: 3525530054402723896, guid: 6caae942623da084ba24485ed0453ddc,
         type: 3}
-      propertyPath: storeInventory.Array.data[2]
-      value: 2
-      objectReference: {fileID: 0}
+      propertyPath: allUpgrades.Array.data[4]
+      value: 
+      objectReference: {fileID: 3779072956677180438, guid: 00a27c9c7f85cce4285feeca1cd43ccc,
+        type: 3}
+    - target: {fileID: 3525530054402723896, guid: 6caae942623da084ba24485ed0453ddc,
+        type: 3}
+      propertyPath: allUpgrades.Array.data[5]
+      value: 
+      objectReference: {fileID: 3779072956677180438, guid: 34f039e07cf0cfc46bceadc4ab59c084,
+        type: 3}
+    - target: {fileID: 3525530054402723896, guid: 6caae942623da084ba24485ed0453ddc,
+        type: 3}
+      propertyPath: allUpgrades.Array.data[6]
+      value: 
+      objectReference: {fileID: 3779072956677180438, guid: a1a0fd979cb786b44875637d6689b09e,
+        type: 3}
     - target: {fileID: 3540478939546940674, guid: 6caae942623da084ba24485ed0453ddc,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -18578,18 +18593,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1529473873}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1529794814 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1289143217770988109, guid: fbafa59e26975034197416e025ab229f,
-    type: 3}
-  m_PrefabInstance: {fileID: 4773237676971078726}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c83936549e04b3248aac58dba125ba30, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1530462704
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -63768,84 +63771,8 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1289143217770988109, guid: fbafa59e26975034197416e025ab229f,
         type: 3}
-      propertyPath: scoreTimer.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1289143217770988109, guid: fbafa59e26975034197416e025ab229f,
-        type: 3}
       propertyPath: mapName
       value: Level 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1289143217770988109, guid: fbafa59e26975034197416e025ab229f,
-        type: 3}
-      propertyPath: mapDescription
-      value: Introduction level. Defeat the rebel knights' base.
-      objectReference: {fileID: 0}
-    - target: {fileID: 1289143217770988109, guid: fbafa59e26975034197416e025ab229f,
-        type: 3}
-      propertyPath: levelSprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 3367642a49d61dc4092bc7d4ac5c3771,
-        type: 3}
-    - target: {fileID: 1289143217770988109, guid: fbafa59e26975034197416e025ab229f,
-        type: 3}
-      propertyPath: mainCameraSize
-      value: 13.46
-      objectReference: {fileID: 0}
-    - target: {fileID: 1289143217770988109, guid: fbafa59e26975034197416e025ab229f,
-        type: 3}
-      propertyPath: scoreTimer.Array.data[0]
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 1289143217770988109, guid: fbafa59e26975034197416e025ab229f,
-        type: 3}
-      propertyPath: scoreTimer.Array.data[1]
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 1289143217770988109, guid: fbafa59e26975034197416e025ab229f,
-        type: 3}
-      propertyPath: scoreTimer.Array.data[2]
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 1289143217770988109, guid: fbafa59e26975034197416e025ab229f,
-        type: 3}
-      propertyPath: startMoney
-      value: 175
-      objectReference: {fileID: 0}
-    - target: {fileID: 1289143217770988109, guid: fbafa59e26975034197416e025ab229f,
-        type: 3}
-      propertyPath: destroyMainBase
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1289143217770988109, guid: fbafa59e26975034197416e025ab229f,
-        type: 3}
-      propertyPath: maxUnits
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 1555203379001240767, guid: fbafa59e26975034197416e025ab229f,
-        type: 3}
-      propertyPath: currentEa
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1555203379001240767, guid: fbafa59e26975034197416e025ab229f,
-        type: 3}
-      propertyPath: isEnd
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1997401294080803885, guid: fbafa59e26975034197416e025ab229f,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1529794814}
-    - target: {fileID: 1997401294080803885, guid: fbafa59e26975034197416e025ab229f,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ButtonClicked
-      objectReference: {fileID: 0}
-    - target: {fileID: 1997401294080803885, guid: fbafa59e26975034197416e025ab229f,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4773237676420406536, guid: fbafa59e26975034197416e025ab229f,
         type: 3}
@@ -63905,6 +63832,11 @@ PrefabInstance:
     - target: {fileID: 4773237676420406537, guid: fbafa59e26975034197416e025ab229f,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7368144081576450542, guid: fbafa59e26975034197416e025ab229f,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

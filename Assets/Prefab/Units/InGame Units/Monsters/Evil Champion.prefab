@@ -61,6 +61,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_RaycastTarget: 0
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -215,7 +216,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -912099329
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: b731930090a9c2e48a504000aa33916e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -502,6 +503,8 @@ MonoBehaviour:
   hpTextTimer: 0.5
   XPvalue: 0
   moneyValue: 50
+  unitName: 
+  dieSound: 0
 --- !u!114 &3325176892794068900
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -535,15 +538,17 @@ MonoBehaviour:
   hasTarget: 0
   numberOfTargets: 0
   actualTime: 0
+  attackSpeedInSeconds: 0.355
   collisionActive: 0
   canTargetBuildings: 1
   isCurrentlyAttacking: 0
+  weaponDamage: 60
+  criticalChance: 0
+  criticalDamageMultiplier: 1
   myAnimator: {fileID: 0}
   teamBelonging: {fileID: 0}
   mover: {fileID: 0}
   weaponRange: 2.5
-  weaponDamage: 60
-  attackSpeedInSeconds: 0.355
   maxTargetDistanceToAttack: 0.4
   currentTargetDistance: 0
 --- !u!114 &3665502030624472493
@@ -561,6 +566,7 @@ MonoBehaviour:
   currentMoveSpeed: 5
   normalMoveSpeed: 5
   acceptableDistanceToDestination: 0.4
+  invertSpriteDirection: 0
   isMoving: 0
   spriteRenderer: {fileID: 8029252598566220750}
   destination: {fileID: 0}
@@ -613,7 +619,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilitiesAnimator: {fileID: 4559442246355302350}
   spriteRenderer:
-  - {fileID: 0}
+  - {fileID: 8029252598566220750}
 --- !u!1 &7332586095390831158
 GameObject:
   m_ObjectHideFlags: 0
@@ -683,7 +689,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1438909041
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: 803d1acec24a56646b891349f6d0345b, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
@@ -764,7 +770,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1438909041
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 6
   m_Sprite: {fileID: 21300000, guid: 803d1acec24a56646b891349f6d0345b, type: 3}
   m_Color: {r: 0.3679459, g: 1, b: 0, a: 1}

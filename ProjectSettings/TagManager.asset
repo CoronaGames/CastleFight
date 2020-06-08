@@ -11,6 +11,7 @@ TagManager:
   - Projectile
   - Road
   - Building
+  - Effects
   layers:
   - Default
   - TransparentFX
@@ -53,6 +54,9 @@ TagManager:
     locked: 0
   - name: Foreground
     uniqueID: 1941688481
+    locked: 0
+  - name: Background Effects
+    uniqueID: 349873781
     locked: 0
   - name: Units
     uniqueID: 3382867967

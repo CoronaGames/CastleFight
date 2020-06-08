@@ -4,5 +4,6 @@
     DamageOverTime,
     Slow,
     Heal,
-    AOE
+    AOE,
+    AOEstun
 }

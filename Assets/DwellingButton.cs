@@ -10,11 +10,11 @@ public class DwellingButton : MonoBehaviour
 {
     public Button button;
     [SerializeField] int buttonIndex = 0;
-    DwellingUpgrader dwellingUpgrader;
+    BasicDwelling dwellingUpgrader;
     // Start is called before the first frame update
     void Start()
     {
-        dwellingUpgrader = GetComponentInParent<DwellingUpgrader>();
+        dwellingUpgrader = GetComponentInParent<BasicDwelling>();
         button = GetComponent<Button>();
     }
 

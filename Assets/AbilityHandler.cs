@@ -37,7 +37,7 @@ public class AbilityHandler : MonoBehaviour
     {
         circleCollider.enabled = true;
         circleCollider.radius = ability.GetRadius();
-        abilityFX.Play();
+        if(abilityFX)abilityFX.Play();
     }
 
     // Update is called once per frame

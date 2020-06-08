@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2371205692953058448}
   - component: {fileID: 3791429721401642588}
   - component: {fileID: 3555978988321097703}
+  - component: {fileID: 2682232436253503433}
   m_Layer: 0
   m_Name: AbilitiesUsedOnTarget
   m_TagString: Untagged
@@ -45,7 +46,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 0e7eb49fd9f67bd4ab8e6244da593a96, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -88,7 +89,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -2059576993
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -101,3 +102,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2682232436253503433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8593576392728697661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6af907050f37424ba132eb2864079b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilitiesAnimator: {fileID: 0}
+  spriteRenderer:
+  - {fileID: 3555978988321097703}

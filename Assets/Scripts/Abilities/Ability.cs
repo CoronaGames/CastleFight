@@ -17,6 +17,7 @@ public class Ability : MonoBehaviour
     [SerializeField] bool onlyTargetUnits = false;
     [SerializeField] bool targetFriendlyUnits = false;
     [SerializeField] bool isAoeAbility = false;
+    [SerializeField] bool onlyTargetSelf = false;
 
 
     [SerializeField] float coolDown;
@@ -24,7 +25,6 @@ public class Ability : MonoBehaviour
     [SerializeField] bool isOnCooldown = false;
 
     public Flag flagCurrent;
-    [SerializeField] CircleCollider2D circleCollider;
 
     [Header("Dot: ")]
     [SerializeField] float dotDamage;
@@ -171,5 +171,10 @@ public class Ability : MonoBehaviour
     public bool IsAoe()
     {
         return isAoeAbility;
+    }
+
+    public bool OnlyTargetSelf()
+    {
+        return onlyTargetSelf;
     }
 }

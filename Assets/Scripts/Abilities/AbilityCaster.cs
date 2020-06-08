@@ -22,6 +22,7 @@ public class AbilityCaster : MonoBehaviour
     [SerializeField] float waitToCastAfterspawnInSeconds = 0f;
     [SerializeField] bool targetFriendlyUnits = false;
     [SerializeField] AbilityHandler abilityHandler;
+    [SerializeField] bool abilityActivated = true;
     
 
     public Animator myAnimator;
@@ -37,6 +38,7 @@ public class AbilityCaster : MonoBehaviour
         circleCollider = GetComponentInChildren<CircleCollider2D>();
         capsuleCollider = GetComponent<CapsuleCollider2D>();
         actualTime = waitToCastAfterspawnInSeconds;
+
         targetFriendlyUnits = currentAbility.IsTargetFriendlyUnits();
         if (abilityHandler != null && abilityHandler.GetAbility() == null)
         {
@@ -83,6 +85,7 @@ public class AbilityCaster : MonoBehaviour
 
     public bool OverHeadUpdate()
     {
+        if (abilityActivated == false) return false;
         if (Attack() || isCurrentlyAttacking) return true;
         return false;
     }
@@ -97,7 +100,11 @@ public class AbilityCaster : MonoBehaviour
         {
             if (currentAbility.GetAbilityFlag() == Flag.Heal)
             {
-                if (target.GetHp() == target.GetMaxHp())
+                if (currentAbility.OnlyTargetSelf())
+                {
+                    ChooseTarget(GetComponent<Health>());
+                }
+                else if (target.GetHp() == target.GetMaxHp())
                 {
                     if (ChooseTargetToHeal())
                     {
@@ -139,7 +146,7 @@ public class AbilityCaster : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-
+        if (abilityActivated == false || currentAbility.OnlyTargetSelf()) return;
         if (other.GetComponent<Health>())
         {
             if (targetFriendlyUnits)
@@ -168,6 +175,7 @@ public class AbilityCaster : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
+        if (abilityActivated == false || currentAbility.OnlyTargetSelf()) return;
         if (other.GetComponent<Health>())
         {
             if (targetFriendlyUnits)
@@ -299,6 +307,12 @@ public class AbilityCaster : MonoBehaviour
         {
             abilityHandler.ActivateAbility();
         }
+        /*
+        else if (currentAbility.OnlyTargetSelf() && currentAbility.flagCurrent == Flag.Heal)
+        {
+            GetComponent<AbilitiesUsedOnTarget>().AddAbilityUsedOnTarget(currentAbility);
+        }
+        */
 
         else if (targets.Count > 0)
         {
@@ -320,4 +334,10 @@ public class AbilityCaster : MonoBehaviour
         isCurrentlyAttacking = false;
         myAnimator.ResetTrigger("CastAbility");
     }
+
+    public void ActivateAbility()
+    {
+        abilityActivated = true;
+    }
+
 }

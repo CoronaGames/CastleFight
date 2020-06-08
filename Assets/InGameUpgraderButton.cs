@@ -10,7 +10,7 @@ public class InGameUpgraderButton : MonoBehaviour
 {
     public Button button;
     [SerializeField] int buttonIndex = 0;
-    DwellingUpgrader dwellingUpgrader;
+    BasicDwelling dwellingUpgrader;
     [SerializeField] GeneralTooltip toolTip;
 
     [SerializeField] string buttonTitle;

@@ -66,7 +66,7 @@ public class AbilitiesUsedOnTarget : MonoBehaviour
             currentlyActiveSlow = null;
             ResetMoveSpeed();
             if (currentlyActiveDOT != null) return;
-            SetColorOnParentRenderes(new Color(255f, 255f, 255f));
+            //SetColorOnParentRenderes(new Color(255f, 255f, 255f));
             return;
         }
         else if (currentFreezeTime > 0)
@@ -101,17 +101,22 @@ public class AbilitiesUsedOnTarget : MonoBehaviour
             //mover.SetMoveSpeedFactor(ability.GetMovementReductionFactor());
             NoFlag(ability); // if slow has damage
             SetColorOnParentRenderes(ability.GetColor());
+            
         }
         else if (ability.flagCurrent == Flag.Heal)
         {
             health.Heal(ability.GetHealAmount());
-            abilitiesAnimator.SetTrigger("Heal");
         }
 
         else if (ability.flagCurrent == Flag.AOE)
         {
 
         }
+        else if(ability.flagCurrent == Flag.AOEstun)
+        {
+
+        }
+        abilitiesAnimator.SetTrigger(ability.GetAnimatorCallString());
     }
 
     public void AddAbilityUsedOnTarget(Ability ability)

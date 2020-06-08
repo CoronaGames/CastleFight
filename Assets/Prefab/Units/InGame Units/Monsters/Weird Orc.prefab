@@ -61,6 +61,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_RaycastTarget: 0
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -215,7 +216,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -912099329
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 294b9a3b20a5d4646ac3fbb31f6be7cb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -504,6 +505,7 @@ MonoBehaviour:
   XPvalue: 0
   moneyValue: 4
   unitName: 
+  dieSound: 0
 --- !u!114 &3325176892794068900
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -565,6 +567,7 @@ MonoBehaviour:
   currentMoveSpeed: 5
   normalMoveSpeed: 5
   acceptableDistanceToDestination: 0.4
+  invertSpriteDirection: 0
   isMoving: 0
   spriteRenderer: {fileID: 8029252598566220750}
   destination: {fileID: 0}
@@ -617,7 +620,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilitiesAnimator: {fileID: 4559442246355302350}
   spriteRenderer:
-  - {fileID: 0}
+  - {fileID: 8029252598566220750}
 --- !u!212 &3049472953746246940
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -737,7 +740,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1438909041
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: 803d1acec24a56646b891349f6d0345b, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
@@ -818,7 +821,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1438909041
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 6
   m_Sprite: {fileID: 21300000, guid: 803d1acec24a56646b891349f6d0345b, type: 3}
   m_Color: {r: 0.3679459, g: 1, b: 0, a: 1}

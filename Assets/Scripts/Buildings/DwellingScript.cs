@@ -12,6 +12,7 @@ public class DwellingScript : MonoBehaviour
     [SerializeField] GameObject spawnPosition;  // Position to spawn units
     [SerializeField] Transform[] waypointsList;
     [SerializeField] Transform[] loopingWaypointsList;
+    [SerializeField] DwellingUpgrader dwellingUpgrader;
 
 
     [SerializeField] float currentSpawnTimeInSeconds;
@@ -35,6 +36,14 @@ public class DwellingScript : MonoBehaviour
     [SerializeField] bool spawningActivated = true;
     [SerializeField] UnitManagerPanel unitManager; // Defines max number of units available for spawning og currentUnitType;
     [SerializeField] int unitIndexForUnitManager;
+    [SerializeField] DwellingUpgrade[] activeUnitUpgrades;
+
+    [Header("Special Attributes")]
+    [SerializeField] bool limitAmountOfUnits;
+    [SerializeField] int maxUnits;
+    [SerializeField] int currentNoOfUnits;
+    [SerializeField] Health[] currentUnits;
+
 
 
     // Start is called before the first frame update
@@ -48,10 +57,15 @@ public class DwellingScript : MonoBehaviour
         unitParent = transform.parent.parent.GetChild(2).gameObject;
         health = GetComponent<Health>();
         sellProfit = buyCost / 2;
+        currentUnits = new Health[3];
         if(teamData.GetTeamBelonging() == Team.TeamRed)
         {
             spawnTimeInSeconds -= GlobalUpgrades.instance.GetUpgradeValueOnUpgradesIndex(1);    // Index 1 is spawnTimeUpgrade
             unitManager = FindObjectOfType<UnitManagerPanel>();
+        }
+        if(dwellingUpgrader == null)
+        {
+            dwellingUpgrader = GetComponentInChildren<DwellingUpgrader>();
         }
     }
 
@@ -77,6 +91,7 @@ public class DwellingScript : MonoBehaviour
         }
         else
         {
+            if (limitAmountOfUnits && CheckForMaxUnits()) return;
             if (teamData.GetTeamBelonging() == Team.TeamRed )
             {
                 if (CastleFightData.instance.IsMaxUnitsReached() || CheckIfUnitCapacityReached() || CastleFightData.instance.IsPauseSpawningUnits()) return;
@@ -90,6 +105,18 @@ public class DwellingScript : MonoBehaviour
             }
         }
        
+    }
+
+    public bool CheckForMaxUnits() // Returns true if max units reached;
+    {
+        int units = 0;
+        for(int i=0; i<currentUnits.Length; i++)
+        {
+            if (currentUnits[i] != null) units++;
+        }
+        currentNoOfUnits = units;
+        if (currentNoOfUnits >= maxUnits) return true;
+        else return false;
     }
 
     private bool CheckIfUnitCapacityReached()
@@ -154,7 +181,7 @@ public class DwellingScript : MonoBehaviour
                 if (teamData.GetTeamBelonging() == Team.TeamRed)
                 {
                     CastleFightData.instance.AddPlayerUnitCount();
-                    
+                    AddUpgradesToUnit(instance);
                 }
 
             }
@@ -168,6 +195,27 @@ public class DwellingScript : MonoBehaviour
         }
     }
 
+    private void AddUpgradesToUnit(GameObject instance)
+    {
+        for(int i=0; i<activeUnitUpgrades.Length; i++)
+        {
+            if (activeUnitUpgrades[i] == null) continue;
+            if (activeUnitUpgrades[i].GetUpgradeType() == UpgradeType.Damage)
+            {
+                instance.GetComponent<Attacker>().AddToBaseDamage(activeUnitUpgrades[i].GetUpgradeVariableCurrentLevel());
+            }
+            else if (activeUnitUpgrades[i].GetUpgradeType() == UpgradeType.ActivateAbility)
+            {
+                instance.GetComponent<AbilityCaster>().ActivateAbility();
+            }
+            else if (activeUnitUpgrades[i].GetUpgradeType() == UpgradeType.AbilityDamage)
+            {
+                
+            }
+        }
+        
+    }
+
     private void GoBackToBaseDwelling()
     {
     
@@ -175,9 +223,9 @@ public class DwellingScript : MonoBehaviour
         instance.transform.position = transform.position;
         instance.transform.parent = transform.parent;
         instance.transform.GetChild(1).gameObject.SetActive(true);
-        if (instance.GetComponentInChildren<DwellingUpgrader>())
+        if (instance.GetComponentInChildren<BasicDwelling>())
         {
-            instance.GetComponentInChildren<DwellingUpgrader>().SetWaypointsList(waypointsList);
+            instance.GetComponentInChildren<BasicDwelling>().SetWaypointsList(waypointsList);
         }
         instance.transform.GetChild(1).gameObject.SetActive(false);
         Destroy(gameObject);
@@ -250,5 +298,48 @@ public class DwellingScript : MonoBehaviour
     public void SetUnitPrefabToInstantiate(GameObject prefab)
     {
         unitPrefabToInstantiate = prefab;
+    }
+
+    public void AddUpgrade(DwellingUpgrade upgrade)
+    {
+         if(upgrade.GetUpgradeType() == UpgradeType.Damage)
+         {
+            int index;
+            if (CheckIfUpgradeExists(upgrade, UpgradeType.Damage, out index))
+            {
+                activeUnitUpgrades[index].IncrementLevel();
+                return;
+            } 
+            
+         }
+         else if(upgrade.GetUpgradeType() == UpgradeType.SpawnExtraUnits)
+        {
+            SetNumberOfUnitsToSpawnPerCountdown(GetNumberOfUnitsSpawnedPerCountdown() + Mathf.RoundToInt(upgrade.GetUpgradeVariables()[upgrade.GetCurrentLevel()]));
+        }
+    }
+
+    private void AddUpgradeToList(DwellingUpgrade upgrade)
+    {
+        for(int i=0; i<activeUnitUpgrades.Length; i++)
+        {
+            if(activeUnitUpgrades[i] == null)
+            {
+                activeUnitUpgrades[i] = upgrade;
+            }
+        }
+    }
+
+    private bool CheckIfUpgradeExists(DwellingUpgrade upgrade, UpgradeType upgradeType, out int index) // Returns true if upgrade exists
+    {
+        for(int i=0; i < activeUnitUpgrades.Length; i++)
+        {
+            if (activeUnitUpgrades[i] != null && activeUnitUpgrades[i].GetUpgradeType() == upgradeType)
+            {
+                index = i;
+                return true;
+            }
+        }
+        index = 0;
+        return false;
     }
 }

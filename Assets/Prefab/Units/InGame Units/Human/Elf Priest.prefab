@@ -61,6 +61,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_RaycastTarget: 0
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -223,7 +224,7 @@ GameObject:
   - component: {fileID: -1246376117776927594}
   - component: {fileID: 4581631403283577031}
   m_Layer: 0
-  m_Name: Elf Wizard
+  m_Name: Elf Priest
   m_TagString: NPC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -451,6 +452,7 @@ MonoBehaviour:
   currentMoveSpeed: 3.5
   normalMoveSpeed: 3.5
   acceptableDistanceToDestination: 0.4
+  invertSpriteDirection: 0
   isMoving: 0
   spriteRenderer: {fileID: 0}
   destination: {fileID: 0}
@@ -475,6 +477,7 @@ MonoBehaviour:
   XPvalue: 0
   moneyValue: 8
   unitName: Wizard
+  dieSound: 0
 --- !u!114 &3163832732896986148
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -539,6 +542,7 @@ MonoBehaviour:
   mover: {fileID: 0}
   weaponRange: 12
   aoeDamage: 4
+  attackSound: 0
   projectilePrefab: {fileID: 4263327631448522296, guid: c4f77b9bcadfa0d4e8e266ed80fefbb0,
     type: 3}
   projectileInstance: {fileID: 0}
@@ -568,7 +572,8 @@ MonoBehaviour:
   isCurrentlyAttacking: 0
   attackSpeedInSeconds: 1
   waitToCastAfterspawnInSeconds: 2.5
-  targetFriendlyUnits: 0
+  targetFriendlyUnits: 1
+  abilityHandler: {fileID: 0}
   myAnimator: {fileID: 0}
   teamBelonging: {fileID: 0}
 --- !u!1 &7332586095390831158

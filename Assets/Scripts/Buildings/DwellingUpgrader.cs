@@ -5,153 +5,73 @@ using UnityEngine.UI;
 
 public class DwellingUpgrader : MonoBehaviour
 {
-    [SerializeField] GameObject parentObject;
-    [SerializeField] GameObject[] dwellingPrefabs;
-    [SerializeField] Transform[] waypointsList;
-    [SerializeField] Transform[] loopingWaypointsList;
+    [SerializeField] DwellingUpgrade[] upgrades;
+    [SerializeField] GameObject[] buttons;
+    [SerializeField] Image[] upgradeSprites;
     [SerializeField] Text[] priceTags;
+    [SerializeField] int sellValue;
+    [SerializeField] GeneralTooltip[] tooltips;
+    [SerializeField] LevelIndicator[] levelIndicators;
 
-    public Image[] button1Upgrades;
-    public Image[] button2Upgrades;
-    public Image[] button3Upgrades;
-
-    [SerializeField] GameObject demoSprite;
-    [SerializeField] SpriteRenderer dwellingSprite;
-    [SerializeField] bool destroyOnZeroHealth = false;
-
-
-    [SerializeField] Image[][] imagesList;
-
-    [SerializeField] int[] buttonClicks;
-    Canvas canvas;
-    TeamData teamData;
-
-    [SerializeField] bool isUpgrade; // is the buttons on this dwelling an upgrade or a new dwelling?
-    [SerializeField] DwellingScript dwellingScript;
-
-    private void Start()
+    void Start()
     {
-        canvas = GetComponent<Canvas>();
-        canvas.worldCamera = Camera.main;
-        teamData = GetComponentInParent<TeamData>();
-        if (GetComponentInParent<DwellingScript>())
-        {
-            dwellingScript = GetComponentInParent<DwellingScript>();
-            loopingWaypointsList = dwellingScript.GetLoopingWaypointsList();
-            waypointsList = dwellingScript.GetWaypointsList();
-
-        }
-        SetUpPriceTags();
-        parentObject = transform.parent.gameObject;
+        SetUpUpgrades();
     }
 
-    private void SetUpPriceTags()
+    private void SetUpUpgrades()
     {
-        for(int i=0; i<dwellingPrefabs.Length; i++)
+        for (int i = 0; i < upgrades.Length; i++)
         {
-            if(dwellingPrefabs[i] != null)
+            if(upgrades[i] == null)
             {
-                priceTags[i].text = dwellingPrefabs[i].GetComponent<DwellingScript>().GetBuyCost().ToString();
+                buttons[i].SetActive(false);
+                continue;
             }
+            upgrades[i].SetLevel(0);
+            upgradeSprites[i].sprite = upgrades[i].GetUpgradeSprite();
+            priceTags[i].text = upgrades[i].GetPrices()[upgrades[i].GetCurrentLevel()].ToString();
+            tooltips[i].gameObject.SetActive(true);
+            tooltips[i].SetTitle(upgrades[i].GetUpgradeName());
+            tooltips[i].SetDescription(upgrades[i].GetDescription());
+            tooltips[i].gameObject.SetActive(false);
+            if (upgrades[i].IsBinaryUpgrade()) levelIndicators[i].SetBinaryUpgrade();
         }
     }
 
-    public void PressButton(int buttonIndex)
+    public void BuyUpgrade(int upgradeIndex)
     {
-        if (dwellingPrefabs[buttonIndex] == null) return;
-        if (!isUpgrade)
+
+        if(CastleFightData.instance.playerMoney >= upgrades[upgradeIndex].GetUpgradePriceCurrentLevel())
         {
-            SetDwellingData(dwellingPrefabs[buttonIndex]);
-            return;
+            upgrades[upgradeIndex].IncrementLevel();
+            UpdateUpgradeButton(upgradeIndex);
+            levelIndicators[upgradeIndex].LevelUp();
+            
         }
-        // TODO: Fix this: 
-        if (buttonClicks[buttonIndex] >= button3Upgrades.Length) return;
-        Debug.Log("Button Clicks[2] value: " + buttonClicks[buttonIndex]);
-        button3Upgrades[buttonClicks[buttonIndex]].enabled = true;
-        buttonClicks[buttonIndex]++;
-        Debug.Log("ButtonThree Pressed");
-    }
-
-    private void SetDwellingData(GameObject dwelling)
-    {
+        else
+        {
+            CastleFightGui.instance.SetInfoText("Cant afford upgrade");
+        }
       
-        if (CastleFightData.instance.ReduceMoney(dwelling.GetComponent<DwellingScript>().GetBuyCost()))
+    }
+
+    public void SellDwelling()
+    {
+
+    }
+
+    public void UpdateUpgradeButton(int buttonToUpdate) // Updates graphic on upgrade levels
+    {
+        if (upgrades[buttonToUpdate].GetCurrentLevel() >= 3 || upgrades[buttonToUpdate].IsBinaryUpgrade())
         {
-            GetComponent<RectTransform>().localScale = new Vector3(1f, 1f, 1f);
-            GameObject instance = Instantiate(dwelling, gameObject.transform);
-
-            if (instance.GetComponent<TeamData>())
-            {
-                instance.GetComponent<TeamData>().SetTeamBelonging(teamData.GetTeamBelonging());
-            }
-            if (instance.GetComponent<DwellingScript>())
-            {
-                instance.GetComponent<DwellingScript>().SetDestroyOnZeroHealth(destroyOnZeroHealth);
-                if (waypointsList.Length > 0)
-                {
-                    instance.GetComponent<DwellingScript>().SetWaypoints(waypointsList);
-                }
-                else
-                {
-                    instance.GetComponent<DwellingScript>().SetWaypoints(GetComponentInParent<DwellingScript>().GetWaypointsList());
-                }
-                if (loopingWaypointsList.Length > 0)
-                {
-                    if (loopingWaypointsList.Length > 0)
-                    {
-                        instance.GetComponent<DwellingScript>().SetLoopingWaypointsList(loopingWaypointsList);
-                    }
-                    else
-                    {
-                        instance.GetComponent<DwellingScript>().SetLoopingWaypointsList(GetComponentInParent<DwellingScript>().GetLoopingWaypointsList());
-                    }
-                }
-            }
-            //else if()
-
-            instance.transform.SetParent(gameObject.transform.parent.parent);
-            instance.transform.position = transform.parent.position;
-            Destroy(parentObject);
+            buttons[buttonToUpdate].GetComponent<Button>().interactable = false;
+            upgradeSprites[buttonToUpdate].color = new Color(1f, 1f, 1f, 0.25f);
         }
         else
         {
-            CastleFightGui.instance.SetInfoText("Not enough money to buy dwelling!");
-            // Connect to UI element for info
-        } 
-    }
-
-
-
-    public void SetWaypointsList(Transform[] waypoints)
-    {
-        waypointsList = waypoints;
-    }
-
-    public void ActivateShowDemo(int index)
-    {
-        demoSprite.SetActive(true);
-        dwellingSprite.enabled = false;
-        if(dwellingPrefabs[index] != null)
-        {
-            if (dwellingPrefabs[index].GetComponent<DwellingScript>() && demoSprite.GetComponent<SpriteRenderer>())
-            {
-                demoSprite.GetComponent<SpriteRenderer>().sprite = dwellingPrefabs[index].GetComponent<DwellingScript>().GetDwellingSprite();
-            }
+            priceTags[buttonToUpdate].text = upgrades[buttonToUpdate].GetPrices()[upgrades[buttonToUpdate].GetCurrentLevel()].ToString();
+            tooltips[buttonToUpdate].SetDescription(upgrades[buttonToUpdate].GetDescription());
         }
-        else
-        {
-            DeactivateShowDemo();
-        }
-    }
-
-    public void DeactivateShowDemo()
-    {
-        demoSprite.SetActive(false);
-        dwellingSprite.enabled = true;
-    }
-
-    public Sprite GetDwellingSprite()
-    {
-        return dwellingSprite.sprite;
+        
     }
 }
